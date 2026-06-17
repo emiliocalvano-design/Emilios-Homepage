@@ -64,10 +64,12 @@ export default {
 
     // ---- dashboard stats ----
     if (url.pathname === '/stats' && request.method === 'GET') {
-      const token =
+      const token = (
         url.searchParams.get('token') ||
-        (request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '');
-      if (!env.DASH_TOKEN || token !== env.DASH_TOKEN) {
+        (request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '')
+      ).trim();
+      const expected = (env.DASH_TOKEN || '').trim();
+      if (!expected || token !== expected) {
         return json({ ok: false, error: 'unauthorized' }, 401);
       }
 
