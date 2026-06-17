@@ -7,7 +7,7 @@ compatibility_date = "2025-01-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "emilio-analytics"
-database_id = "REPLACE_WITH_DATABASE_ID"
+database_id = "ff9d47a4-3374-4f8e-a79d-335832657c2c"
 
 # Dashboard auth token is a SECRET, not stored here.
 # Set it with:  npx wrangler secret put DASH_TOKEN

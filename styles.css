@@ -162,6 +162,19 @@ h1, h2, h3 { font-weight: 300; line-height: 1.2; }
 .course li { margin: 5px 0; }
 .highlight { background: #fff8a8; padding: 0 3px; }
 
+/* ---------- Footer ---------- */
+.site-footer {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 18px 24px 30px;
+  border-top: 1px solid #ececec;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+.site-footer a { color: var(--muted); text-decoration: none; }
+.site-footer a:hover { color: var(--ink); text-decoration: underline; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 760px) {
   .nav { padding: 18px 16px 8px; }
