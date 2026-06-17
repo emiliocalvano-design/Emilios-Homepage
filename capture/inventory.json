@@ -1,0 +1,143 @@
+{
+  "pages": [
+    {
+      "url": "https://emiliocalvano.wixsite.com/emiliocalvano",
+      "slug": "emiliocalvano",
+      "status": "ok"
+    },
+    {
+      "url": "https://emiliocalvano.wixsite.com/emiliocalvano/about-me-contact",
+      "slug": "emiliocalvano_about_me_contact",
+      "status": "ok"
+    },
+    {
+      "url": "https://emiliocalvano.wixsite.com/emiliocalvano/research-1",
+      "slug": "emiliocalvano_research_1",
+      "status": "ok"
+    },
+    {
+      "url": "https://emiliocalvano.wixsite.com/emiliocalvano/teaching",
+      "slug": "emiliocalvano_teaching",
+      "status": "ok"
+    },
+    {
+      "url": "https://emiliocalvano.wixsite.com/emiliocalvano/general-5",
+      "slug": "emiliocalvano_general_5",
+      "status": "ok"
+    }
+  ],
+  "externalLinks": [
+    "https://www.wix.com/lpviral/enviral?utm_campaign=vir_wixad_live&adsVersion=banner_2024&orig_msid=aa99f552-cce6-4d9b-96f0-a304175f7068&orig_msid=04185bea-6198-4bcc-b22c-095c6be27c14&adsVersion=banner_2024",
+    "https://economiaefinanza.luiss.it/en",
+    "https://www.tse-fr.eu/",
+    "https://onlinelibrary.wiley.com/journal/14676451",
+    "http://www.cepr.org/"
+  ],
+  "assets": [
+    {
+      "url": "https://static.wixstatic.com/media/096258_ba30ec6bf9084f5db8d768c1efa8ff43.jpg/v1/fill/w_776,h_383,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/096258_ba30ec6bf9084f5db8d768c1efa8ff43.jpg",
+      "file": "media_096258_ba30ec6bf9084f5db8d768c1efa8ff43_jpg_v1_fill_w_776_h_383_al_c_q_80_usm_0_66_1_00_0_01_enc_avif_quality_auto_096258_ba30ec6bf9084f5db8d768c1efa8ff43_jpg_1513467520.jpg",
+      "status": 200,
+      "bytes": 86490,
+      "ok": true
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_ba30ec6bf9084f5db8d768c1efa8ff43.jpg/v1/fill/w_776",
+      "status": 403,
+      "ok": false
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_ba30ec6bf9084f5db8d768c1efa8ff43.jpg/v1/fill/w_1552",
+      "status": 403,
+      "ok": false
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_53d66a4303524167bffea05bc6395186~mv2.jpg/v1/crop/x_0,y_0,w_567,h_377/fill/w_272,h_181,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/headshot.jpg",
+      "file": "media_096258_53d66a4303524167bffea05bc6395186_mv2_jpg_v1_crop_x_0_y_0_w_567_h_377_fill_w_272_h_181_al_c_q_80_usm_0_66_1_00_0_01_enc_avif_quality_auto_headshot_jpg_1342699636.jpg",
+      "status": 200,
+      "bytes": 8929,
+      "ok": true
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_53d66a4303524167bffea05bc6395186~mv2.jpg/v1/crop/x_0",
+      "status": 400,
+      "ok": false
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_465e7f81eefb4a53b29f5a20565fbbec~mv2.png/v1/fill/w_176,h_93,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/096258_465e7f81eefb4a53b29f5a20565fbbec~mv2.png",
+      "file": "media_096258_465e7f81eefb4a53b29f5a20565fbbec_mv2_png_v1_fill_w_176_h_93_al_c_q_85_usm_0_66_1_00_0_01_enc_avif_quality_auto_096258_465e7f81eefb4a53b29f5a20565fbbec_mv2_png_391266003.png",
+      "status": 200,
+      "bytes": 10931,
+      "ok": true
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_9c76e29a1b2242e395a84aaa5c59029c~mv2.png/v1/fill/w_176,h_93,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/096258_9c76e29a1b2242e395a84aaa5c59029c~mv2.png",
+      "file": "media_096258_9c76e29a1b2242e395a84aaa5c59029c_mv2_png_v1_fill_w_176_h_93_al_c_q_85_usm_0_66_1_00_0_01_enc_avif_quality_auto_096258_9c76e29a1b2242e395a84aaa5c59029c_mv2_png_1680139925.png",
+      "status": 200,
+      "bytes": 10463,
+      "ok": true
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_913eb99c807e4567a63e502a3213346a~mv2.jpg/v1/fill/w_176,h_93,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/096258_913eb99c807e4567a63e502a3213346a~mv2.jpg",
+      "file": "media_096258_913eb99c807e4567a63e502a3213346a_mv2_jpg_v1_fill_w_176_h_93_al_c_q_80_usm_0_66_1_00_0_01_enc_avif_quality_auto_096258_913eb99c807e4567a63e502a3213346a_mv2_jpg_97715110.jpg",
+      "status": 200,
+      "bytes": 7314,
+      "ok": true
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_01ebf511a7994e2f8e660c53ecacc740~mv2.png/v1/fill/w_176,h_93,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/096258_01ebf511a7994e2f8e660c53ecacc740~mv2.png",
+      "file": "media_096258_01ebf511a7994e2f8e660c53ecacc740_mv2_png_v1_fill_w_176_h_93_al_c_q_85_usm_0_66_1_00_0_01_enc_avif_quality_auto_096258_01ebf511a7994e2f8e660c53ecacc740_mv2_png_757842767.png",
+      "status": 200,
+      "bytes": 22255,
+      "ok": true
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_dd3e54b82b194b66a886f3dbad0ba80a~mv2.png/v1/fill/w_176,h_93,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/096258_dd3e54b82b194b66a886f3dbad0ba80a~mv2.png",
+      "file": "media_096258_dd3e54b82b194b66a886f3dbad0ba80a_mv2_png_v1_fill_w_176_h_93_al_c_q_85_usm_0_66_1_00_0_01_enc_avif_quality_auto_096258_dd3e54b82b194b66a886f3dbad0ba80a_mv2_png_425973111.png",
+      "status": 200,
+      "bytes": 30562,
+      "ok": true
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_bbd798b0a96246009ecf56710ac35cd0~mv2.png/v1/fill/w_124,h_125,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/096258_bbd798b0a96246009ecf56710ac35cd0~mv2.png",
+      "file": "media_096258_bbd798b0a96246009ecf56710ac35cd0_mv2_png_v1_fill_w_124_h_125_al_c_q_85_usm_0_66_1_00_0_01_enc_avif_quality_auto_096258_bbd798b0a96246009ecf56710ac35cd0_mv2_png_457946920.png",
+      "status": 200,
+      "bytes": 17742,
+      "ok": true
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_bbd798b0a96246009ecf56710ac35cd0~mv2.png/v1/fill/w_124",
+      "status": 403,
+      "ok": false
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_bbd798b0a96246009ecf56710ac35cd0~mv2.png/v1/fill/w_248",
+      "status": 403,
+      "ok": false
+    },
+    {
+      "url": "https://static.wixstatic.com/media/096258_4b9df43f4ce84135a6d5039aea0cb805~mv2.gif",
+      "file": "media_096258_4b9df43f4ce84135a6d5039aea0cb805_mv2_gif_209732854.gif",
+      "status": 200,
+      "bytes": 8284,
+      "ok": true
+    }
+  ],
+  "fonts": [
+    "Times",
+    "Arial",
+    "Helvetica",
+    "sans-serif",
+    "メイリオ",
+    "meiryo",
+    "ヒラギノ角ゴ pro w3",
+    "hiragino kaku gothic pro",
+    "Madefor-Text",
+    "Helvetica Neue",
+    "din-next-w01-light",
+    "raleway",
+    "Times New Roman",
+    "din-next-w02-light",
+    "din-next-w10-light"
+  ]
+}
