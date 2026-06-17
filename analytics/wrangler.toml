@@ -1,0 +1,13 @@
+name = "emilio-analytics"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+# Created by: npx wrangler d1 create emilio-analytics
+# Paste the printed database_id below, then deploy.
+[[d1_databases]]
+binding = "DB"
+database_name = "emilio-analytics"
+database_id = "REPLACE_WITH_DATABASE_ID"
+
+# Dashboard auth token is a SECRET, not stored here.
+# Set it with:  npx wrangler secret put DASH_TOKEN
