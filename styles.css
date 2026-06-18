@@ -93,16 +93,16 @@ h1, h2, h3 { font-weight: 300; line-height: 1.2; }
 .appointments {
   display: flex;
   flex-wrap: wrap;
-  gap: 26px 20px;
+  gap: 24px 16px;
 }
 .appt {
-  width: 168px;
+  width: 138px;
   text-align: left;
 }
 .appt a { text-decoration: none; }
 .appt img {
-  width: 168px;
-  height: 89px;
+  width: 138px;
+  height: 74px;
   object-fit: contain;
   border: 1px solid #ececec;
   display: block;
