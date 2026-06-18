@@ -46,7 +46,7 @@ Commit + push, and within ~1 minute every page will beacon visits and the dashbo
 will read them. (Tell me the URL and I'll set this line + push for you.)
 
 ## Using it
-- Dashboard: **https://emiliocalvano-design.github.io/Emilios-Homepage/console.html**
+- Dashboard: **https://emiliocalvano.com/console.html**
 - Enter your `DASH_TOKEN`. Shows 30/60/90-day counts with trend arrows, a 90-day
   sparkline, and a table of recent visits (time, IP, city/country, network org, page).
 
