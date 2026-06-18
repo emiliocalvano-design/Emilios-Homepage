@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /console.html
 
-Sitemap: https://emiliocalvano-design.github.io/Emilios-Homepage/sitemap.xml
+Sitemap: https://emiliocalvano.com/sitemap.xml
