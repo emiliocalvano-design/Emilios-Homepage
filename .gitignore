@@ -6,3 +6,6 @@ capture/dom/
 ijio.jpg
 capture/mock_*.png
 capture/shoot_*.mjs
+capture/*.png
+capture/screenshots/
+capture/replica_shots/
