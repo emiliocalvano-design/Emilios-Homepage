@@ -129,6 +129,9 @@ h1, h2, h3 { font-weight: 300; line-height: 1.2; }
 .btn:hover { background: #f4f4f4; }
 .btn-row { margin-bottom: 26px; }
 .appt-list .item { margin: 0 0 18px; }
+.appt-list-cols { columns: 2; column-gap: 40px; }
+.appt-list-cols .item { break-inside: avoid; }
+@media (max-width: 520px){ .appt-list-cols { columns: 1; } }
 .appt-list .label { font-weight: 500; }
 .appt-list .org { color: var(--maroon); }
 .appt-list .org a { color: var(--maroon); }
@@ -161,6 +164,27 @@ h1, h2, h3 { font-weight: 300; line-height: 1.2; }
 .course ul { margin: 8px 0; padding-left: 22px; }
 .course li { margin: 5px 0; }
 .highlight { background: #fff8a8; padding: 0 3px; }
+
+/* ---------- Full CV ---------- */
+.cv-full { margin-top: 56px; border-top: 1px solid var(--rule); padding-top: 28px; }
+.cv-full .cv-title { font-size: 30px; font-weight: 300; margin: 0 0 4px; }
+.cv-full .cv-sub { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
+.cv-full h2.group { font-size: 22px; margin: 40px 0 14px; }
+.cv-full h3.subh { font-size: 16px; font-weight: 600; margin: 22px 0 8px; }
+.cv-full ul, .cv-full ol { max-width: 840px; padding-left: 22px; margin: 8px 0; }
+.cv-full li { margin: 6px 0; }
+.cv-full ol li { margin: 4px 0; }
+.cv-full .pub { max-width: 840px; margin: 0 0 16px; }
+.cv-full .pub .t { font-style: italic; }
+.cv-full .pub .v { font-weight: 600; }
+.cv-full .pub .au { color: var(--ink); }
+.cv-full .lead { max-width: 840px; }
+.cv-full li.li-logo { display: flex; align-items: center; gap: 11px; }
+.cv-ico { height: 26px; width: auto; max-width: 46px; object-fit: contain;
+  flex: 0 0 auto; border: 1px solid #ececec; border-radius: 3px; background: #fff; }
+.cv-full .twocol { columns: 2; column-gap: 40px; max-width: 840px; }
+.cv-full .twocol li { break-inside: avoid; }
+@media (max-width: 640px){ .cv-full .twocol { columns: 1; } }
 
 /* ---------- Footer ---------- */
 .site-footer {
