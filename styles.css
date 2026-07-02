@@ -158,9 +158,14 @@ h1, h2, h3 { font-weight: 300; line-height: 1.2; }
 .erc-logo { float: right; width: 110px; height: auto; margin: 0 0 10px 20px; }
 .muted { color: var(--muted); }
 
-.course { margin: 0 0 40px; max-width: 820px; }
+.course { margin: 0 0 40px; max-width: 820px; display: flex; align-items: center;
+  justify-content: space-between; gap: 24px; }
+.course .course-body { flex: 1 1 auto; min-width: 0; }
 .course h3 { font-size: 19px; font-weight: 400; margin: 0 0 2px; }
 .course .sub { color: var(--ink); margin: 0; }
+.course-logos { flex: 0 0 auto; display: flex; align-items: center; gap: 16px; }
+.course-logos a { display: inline-flex; }
+.course-logos img { height: 30px; width: auto; max-width: 132px; object-fit: contain; display: block; }
 .course .upd { color: var(--muted); font-size: 14px; margin: 4px 0 10px; }
 .course ul { margin: 8px 0; padding-left: 22px; }
 .course li { margin: 5px 0; }
@@ -211,4 +216,6 @@ h1, h2, h3 { font-weight: 300; line-height: 1.2; }
   .appointments { justify-content: center; }
   .cv-grid { gap: 30px; }
   .erc-logo { float: none; display: block; margin: 0 0 16px; }
+  .course { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .course-logos { flex-wrap: wrap; gap: 14px; }
 }
