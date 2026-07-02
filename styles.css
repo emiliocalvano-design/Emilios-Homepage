@@ -144,14 +144,15 @@ h1, h2, h3 { font-weight: 300; line-height: 1.2; }
 /* ---------- Research / Teaching content ---------- */
 .content h2.group {
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 400;
+  color: var(--maroon);
   margin: 46px 0 20px;
   border-bottom: 0;
 }
 .content .lead { max-width: 760px; }
 .entry { margin: 0 0 22px; max-width: 820px; }
-.entry .title { font-weight: 400; }
-.entry .meta { color: var(--ink); }
+.entry .title { font-weight: 500; color: #111; }
+.entry .meta { color: #6f6f6f; }
 .entry .venue { font-style: italic; }
 .badge { vertical-align: middle; height: 26px; margin-left: 8px; }
 .erc-logo { float: right; width: 110px; height: auto; margin: 0 0 10px 20px; }
