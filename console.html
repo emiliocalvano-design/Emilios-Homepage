@@ -92,7 +92,16 @@
 
     <div class="panel">
       <h3>Universities &amp; research networks <span class="meta" id="acmeta"></span></h3>
-      <div id="universities"></div>
+      <div class="grid2">
+        <div>
+          <div class="meta" style="margin-bottom:8px">By network</div>
+          <div id="universities"></div>
+        </div>
+        <div>
+          <div class="meta" style="margin-bottom:8px">By campus city (de-aggregates GARR etc.)</div>
+          <div id="academicByCity"></div>
+        </div>
+      </div>
     </div>
 
     <div class="grid2">
@@ -206,6 +215,7 @@
         (tot ? Math.round(a/tot*100) : 0) + '% from academic networks — last 90 days)';
     }
     document.getElementById('universities').innerHTML = barlist(g.universities, {edu:true, limit:15});
+    document.getElementById('academicByCity').innerHTML = barlist(g.academicByCity, {edu:true, limit:15});
     document.getElementById('byCountry').innerHTML   = barlist(g.byCountry, {limit:12});
     document.getElementById('byCity').innerHTML      = barlist(g.byCity, {limit:12});
     document.getElementById('byOrg').innerHTML       = barlist(g.byOrg, {limit:12});

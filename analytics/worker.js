@@ -206,6 +206,8 @@ export default {
         window: 90,
         academicSplit: { academic: academic.length, other: win90.length - academic.length },
         universities: groupBy(academic, (r) => academicLabel(r)),
+        // de-aggregate national networks (e.g. GARR) down to the campus city
+        academicByCity: groupBy(academic, (r) => [r.city, r.country].filter(Boolean).join(', ')),
         byCountry: groupBy(win90, (r) => r.country),
         byCity: groupBy(win90, (r) => [r.city, r.country].filter(Boolean).join(', ')),
         byOrg: groupBy(win90, (r) => r.org),
