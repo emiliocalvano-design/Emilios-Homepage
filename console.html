@@ -44,7 +44,27 @@
   td.ip { font-family:ui-monospace,Menlo,monospace; }
   .pill { display:inline-block; background:#f1f1f1; border-radius:5px; padding:1px 7px; font-size:12px; }
   .hidden { display:none; }
-  @media (max-width:680px){ .cards{ grid-template-columns:1fr; } td.ua{ display:none; } }
+
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+  .grid2 .panel { margin-bottom:0; }
+  .grid2 + .grid2, .grid2 + .panel { margin-top:26px; }
+
+  /* horizontal bar list */
+  .bl { display:flex; flex-direction:column; gap:7px; }
+  .bl .row { display:grid; grid-template-columns:1fr auto; gap:8px 12px; align-items:center; }
+  .bl .lbl { font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .bl .val { font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .bl .track { grid-column:1 / -1; height:6px; background:#f0f0f0; border-radius:4px; overflow:hidden; margin-top:-3px; }
+  .bl .fill { height:100%; background:#111; border-radius:4px; }
+  .bl.edu .fill { background:var(--up); }
+  .bl .empty { color:var(--muted); font-size:13px; }
+
+  .dl { float:right; font-size:12px; font-weight:400; background:#fff; color:#111;
+        border:1px solid var(--line); border-radius:6px; padding:5px 11px; cursor:pointer; }
+  .dl:hover { background:#f4f4f4; }
+
+  @media (max-width:680px){ .cards{ grid-template-columns:1fr; } td.ua{ display:none; }
+    .grid2{ grid-template-columns:1fr; gap:26px; } }
 </style>
 </head>
 <body>
@@ -71,7 +91,36 @@
     </div>
 
     <div class="panel">
-      <h3>Recent visits <span class="meta" id="recmeta"></span></h3>
+      <h3>Universities &amp; research networks <span class="meta" id="acmeta"></span></h3>
+      <div id="universities"></div>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3>By country — last 90 days</h3>
+        <div id="byCountry"></div>
+      </div>
+      <div class="panel">
+        <h3>By city — last 90 days</h3>
+        <div id="byCity"></div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3>Networks / organisations</h3>
+        <div id="byOrg"></div>
+      </div>
+      <div class="panel">
+        <h3>Traffic sources (referrer)</h3>
+        <div id="byReferrer"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Recent visits <span class="meta" id="recmeta"></span>
+        <button class="dl" id="download">⬇ Download full CSV</button>
+      </h3>
       <div style="overflow-x:auto">
         <table id="rec">
           <thead><tr>
@@ -128,14 +177,43 @@
       '<span>90 days ago</span><span>peak '+max+'/day</span><span>today</span></div>';
   }
 
+  // horizontal bar list from [{key,hits,uniqueIps}]
+  function barlist(items, opts){
+    opts = opts || {};
+    if (!items || !items.length) return '<div class="empty">No data yet.</div>';
+    var top = items.slice(0, opts.limit || 12);
+    var max = Math.max.apply(null, top.map(function(i){ return i.hits; }));
+    return '<div class="bl'+(opts.edu?' edu':'')+'">' + top.map(function(i){
+      var w = Math.max(2, Math.round((i.hits/max)*100));
+      return '<div class="row"><div class="lbl">'+esc(i.key)+'</div>'+
+        '<div class="val">'+i.hits.toLocaleString()+' · '+i.uniqueIps.toLocaleString()+' IP'+(i.uniqueIps===1?'':'s')+'</div>'+
+        '<div class="track"><div class="fill" style="width:'+w+'%"></div></div></div>';
+    }).join('') + '</div>';
+  }
+
   function render(d){
     document.getElementById('genat').textContent =
       'updated ' + new Date(d.generatedAt).toLocaleString() + ' · ' + d.totalLogged + ' rows';
     document.getElementById('cards').innerHTML =
       card(d.windows.d30,'Last 30 days') + card(d.windows.d60,'Last 60 days') + card(d.windows.d90,'Last 90 days');
     document.getElementById('spark').innerHTML = sparkline(d.series90);
+
+    var g = d.groups || {};
+    if (g.academicSplit){
+      var a = g.academicSplit.academic, tot = a + g.academicSplit.other;
+      document.getElementById('acmeta').textContent =
+        '(' + a.toLocaleString() + ' of ' + tot.toLocaleString() + ' views · ' +
+        (tot ? Math.round(a/tot*100) : 0) + '% from academic networks — last 90 days)';
+    }
+    document.getElementById('universities').innerHTML = barlist(g.universities, {edu:true, limit:15});
+    document.getElementById('byCountry').innerHTML   = barlist(g.byCountry, {limit:12});
+    document.getElementById('byCity').innerHTML      = barlist(g.byCity, {limit:12});
+    document.getElementById('byOrg').innerHTML       = barlist(g.byOrg, {limit:12});
+    document.getElementById('byReferrer').innerHTML  = barlist(g.byReferrer, {limit:12});
+
     var tb = document.querySelector('#rec tbody');
-    document.getElementById('recmeta').textContent = '(' + d.recent.length + ' most recent)';
+    document.getElementById('recmeta').textContent =
+      '(' + d.recent.length + ' shown of ' + d.totalLogged + ')';
     tb.innerHTML = d.recent.map(function(r){
       return '<tr><td>'+timeAgo(r.ts)+'</td><td class="ip">'+esc(r.ip)+'</td>'+
         '<td>'+esc(r.loc||'—')+'</td><td>'+(r.org?'<span class="pill">'+esc(r.org)+'</span>':'—')+'</td>'+
@@ -145,7 +223,7 @@
 
   function load(token){
     err.textContent = 'Loading…';
-    fetch(API + '/stats?token=' + encodeURIComponent(token))
+    fetch(API + '/stats?limit=5000&token=' + encodeURIComponent(token))
       .then(function(res){
         if (res.status === 401) throw new Error('Invalid token');
         if (!res.ok) throw new Error('Error ' + res.status);
@@ -176,6 +254,10 @@
   document.getElementById('token').addEventListener('keydown', function(e){ if (e.key==='Enter') attempt(); });
   document.getElementById('reload').addEventListener('click', function(){
     load(sessionStorage.getItem('dash_token'));
+  });
+  document.getElementById('download').addEventListener('click', function(){
+    var t = sessionStorage.getItem('dash_token');
+    if (t) window.location = API + '/export?days=180&token=' + encodeURIComponent(t);
   });
 
   var saved = sessionStorage.getItem('dash_token');
