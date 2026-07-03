@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Economics of AI — Syllabus — Emilio Calvano</title>
+<meta name="description" content="Course syllabus for the Economics of AI (Barcelona School of Economics), taught by Emilio Calvano. Interactive tree of sections, subsections, and readings.">
+<link rel="canonical" href="https://emiliocalvano.com/eoai-syllabus.html">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ===== Economics of AI syllabus — slide-template look ===== */
+/* Wong palette from the course slides: blue (0,114,178), red (213,94,0). */
+.syl {
+  --syl-blue: rgb(0,114,178);
+  --syl-red:  rgb(213,94,0);
+  --syl-ink:  #232323;
+  --syl-line: #e3e3e3;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, "URW Palladio L", Georgia, serif;
+  color: var(--syl-ink);
+  max-width: 900px;
+}
+
+/* ---- masthead: echoes a slide title frame ---- */
+.syl-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 14px;
+  border-bottom: 3px solid var(--syl-blue);
+  margin: 6px 0 4px;
+}
+.syl-head .titles h1 {
+  font-family: inherit;
+  color: var(--syl-blue);
+  font-weight: 600;
+  font-size: 38px;
+  line-height: 1.1;
+  margin: 0 0 6px;
+  letter-spacing: .2px;
+}
+.syl-head .titles .kicker {
+  color: var(--syl-red);
+  font-size: 15px;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+.syl-head .titles .who { color: #555; font-size: 16px; margin: 0; }
+.syl-head .who a { color: var(--syl-blue); text-decoration: none; }
+.syl-head .who a:hover { text-decoration: underline; }
+.syl-head .brand img { height: 34px; width: auto; display: block; }
+
+.syl-intro { color: #444; font-size: 16px; line-height: 1.6; margin: 22px 0 10px; max-width: 760px; }
+
+/* ---- toolbar ---- */
+.syl-tools { margin: 18px 0 22px; font-size: 14px; }
+.syl-tools button {
+  font-family: inherit;
+  background: #fff;
+  border: 1px solid var(--syl-blue);
+  color: var(--syl-blue);
+  padding: 5px 14px;
+  margin-right: 8px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.syl-tools button:hover { background: var(--syl-blue); color: #fff; }
+
+/* ---- tree: sections ---- */
+.syl details { margin: 0; }
+.syl-sec {
+  border: 1px solid var(--syl-line);
+  border-left: 4px solid var(--syl-blue);
+  margin: 0 0 10px;
+  background: #fff;
+}
+.syl-sec > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 18px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  color: var(--syl-blue);
+  font-size: 21px;
+  font-weight: 600;
+  user-select: none;
+}
+.syl-sec > summary::-webkit-details-marker { display: none; }
+.syl-sec > summary:hover { background: #f5f9fc; }
+.syl-sec > summary .num {
+  flex: 0 0 auto;
+  min-width: 1.4em;
+  color: var(--syl-red);
+  font-weight: 700;
+}
+.syl-sec > summary .chev {
+  margin-left: auto;
+  flex: 0 0 auto;
+  color: #b7c9d6;
+  font-size: 15px;
+  transition: transform .18s ease;
+}
+.syl-sec[open] > summary .chev { transform: rotate(90deg); }
+.syl-sec[open] > summary { border-bottom: 1px solid var(--syl-line); }
+
+/* ---- tree: subsections ---- */
+.syl-subwrap { padding: 6px 14px 12px 22px; }
+.syl-sub { border-bottom: 1px dotted #dcdcdc; }
+.syl-sub:last-child { border-bottom: 0; }
+.syl-sub > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 6px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 17px;
+  color: var(--syl-ink);
+  user-select: none;
+}
+.syl-sub > summary::-webkit-details-marker { display: none; }
+.syl-sub > summary:hover { color: var(--syl-blue); }
+.syl-sub > summary .let {
+  flex: 0 0 auto;
+  min-width: 1.4em;
+  color: var(--syl-blue);
+  font-weight: 700;
+  font-style: italic;
+}
+.syl-sub > summary .chev {
+  margin-left: auto;
+  color: #ccc;
+  font-size: 12px;
+  transition: transform .18s ease;
+}
+.syl-sub[open] > summary .chev { transform: rotate(90deg); }
+.syl-sub[open] > summary { color: var(--syl-blue); }
+
+.syl-lone { /* sections with no subsections */
+  padding: 2px 6px 10px 22px;
+}
+
+/* ---- references ---- */
+.syl-refs {
+  margin: 2px 0 12px;
+  padding: 12px 16px 12px 18px;
+  border-left: 3px solid var(--syl-red);
+  background: #fbf7f4;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+.syl-refs .rlab {
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--syl-red);
+  margin: 0 0 8px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+}
+.syl-refs ul { margin: 0; padding-left: 20px; }
+.syl-refs li { margin: 0 0 8px; }
+.syl-refs li:last-child { margin-bottom: 0; }
+.syl-refs .au { color: #111; }
+.syl-refs .ti { font-style: italic; }
+.syl-refs .ve { color: #555; }
+.syl-refs a { color: var(--syl-blue); text-decoration: none; }
+.syl-refs a:hover { text-decoration: underline; }
+.syl-refs .none { color: #888; font-style: italic; }
+
+.syl-note { color: var(--muted, #9a9a9a); font-size: 13px; margin: 30px 0 0; max-width: 760px; line-height: 1.5; }
+
+@media (max-width: 640px) {
+  .syl-head { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .syl-head .titles h1 { font-size: 30px; }
+  .syl-sec > summary { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cv.html">CV &amp; Contact</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="teaching.html" class="active">Teaching</a></li>
+    <li><a href="policy.html">Policy &amp; disclosures</a></li>
+  </ul>
+  <div class="rule"></div>
+</nav>
+
+<main class="wrap content">
+<div class="syl">
+
+  <header class="syl-head">
+    <div class="titles">
+      <p class="kicker">Course Syllabus</p>
+      <h1>Economics of AI</h1>
+      <p class="who"><a href="https://bse.eu/summer-school/digital-economy/economics-artificial-intelligence" target="_blank" rel="noopener">Barcelona School of Economics</a> · Emilio Calvano</p>
+    </div>
+    <div class="brand">
+      <a href="https://bse.eu/summer-school/digital-economy/economics-artificial-intelligence" target="_blank" rel="noopener"><img src="assets/logo-bse.svg" alt="Barcelona School of Economics"></a>
+    </div>
+  </header>
+
+  <p class="syl-intro">
+    The course is modular. Below is the full map of what was covered, arranged as a tree:
+    open a <strong>section</strong> to see its <strong>subsections</strong>, and open a subsection
+    to see the readings discussed there.
+  </p>
+
+  <div class="syl-tools">
+    <button type="button" id="syl-expand">Expand all</button>
+    <button type="button" id="syl-collapse">Collapse all</button>
+  </div>
+
+  <!-- ==================== 1 ==================== -->
+  <details class="syl-sec">
+    <summary><span class="num">1</span><span class="lbl">What is AI?</span><span class="chev">&#9654;</span></summary>
+    <div class="syl-subwrap">
+
+      <details class="syl-sub">
+        <summary><span class="let">a</span>Definitions and views<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Poole, D., Mackworth, A., &amp; Goebel, R. (1998).</span> <span class="ti">Computational Intelligence: A Logical Approach.</span> <span class="ve">Oxford University Press.</span></li>
+          <li><span class="au">Agrawal, A., Gans, J., &amp; Goldfarb, A. (2018).</span> <span class="ti">Prediction Machines: The Simple Economics of Artificial Intelligence.</span> <span class="ve">Harvard Business Press.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">b</span>Machine learning<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Mullainathan, S., &amp; Spiess, J. (2017).</span> Machine Learning: An Applied Econometric Approach. <span class="ve">Journal of Economic Perspectives, 31(2), 87–106.</span> <a href="https://doi.org/10.1257/jep.31.2.87" target="_blank" rel="noopener">doi</a></li>
+          <li><span class="au">Athey, S. (2019).</span> The Impact of Machine Learning on Economics. <span class="ve">In The Economics of Artificial Intelligence (pp. 507–552). University of Chicago Press.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">c</span>Reinforcement learning<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Mnih, V., et al. (2015).</span> Human-level control through deep reinforcement learning. <span class="ve">Nature, 518, 529–533.</span> <span class="ve">(Atari / Deep Q-learning.)</span></li>
+          <li><span class="au">Silver, D., et al. (2018).</span> A general reinforcement learning algorithm that masters chess, shogi and Go through self-play. <span class="ve">Science, 362(6419), 1140–1144.</span> <span class="ve">(AlphaZero.)</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">d</span>Foundation models (a teaser)<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Bommasani, R., et al. (2021).</span> On the Opportunities and Risks of Foundation Models. <span class="ve">arXiv:2108.07258.</span> <a href="http://arxiv.org/abs/2108.07258" target="_blank" rel="noopener">arXiv</a> <span class="ve">(Developed fully in Section 2.)</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">e</span>Key facts and trends<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Stanford HAI (2025).</span> <span class="ti">Artificial Intelligence Index Report 2025.</span> <span class="ve">Stanford University.</span></li>
+          <li><span class="au">Perrault, R., &amp; Clark, J. (2024).</span> <span class="ti">Artificial Intelligence Index Report 2024.</span> <span class="ve">Stanford HAI.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">f</span>Economics in AI<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Hardt, M., Megiddo, N., Papadimitriou, C., &amp; Wootters, M. (2015).</span> Strategic Classification. <span class="ve">arXiv:1506.06980.</span> <a href="http://arxiv.org/abs/1506.06980" target="_blank" rel="noopener">arXiv</a></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">g</span>Economics of AI<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Agrawal, A., Gans, J., &amp; Goldfarb, A. (2022).</span> <span class="ti">Power and Prediction: The Disruptive Economics of Artificial Intelligence.</span> <span class="ve">Harvard Business Review Press.</span></li>
+          <li><span class="au">Acemoglu, D., &amp; Restrepo, P. (2019, 2021).</span> Automation, tasks, and the direction of technological change. <span class="ve">(AI as a substitute for cognition / labor.)</span></li>
+        </ul></div>
+      </details>
+
+    </div>
+  </details>
+
+  <!-- ==================== 2 ==================== -->
+  <details class="syl-sec">
+    <summary><span class="num">2</span><span class="lbl">Foundation models</span><span class="chev">&#9654;</span></summary>
+    <div class="syl-subwrap">
+
+      <details class="syl-sub">
+        <summary><span class="let">a</span>What is a foundation model? Capabilities<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Bommasani, R., et al. (2021).</span> On the Opportunities and Risks of Foundation Models. <span class="ve">arXiv:2108.07258.</span> <a href="http://arxiv.org/abs/2108.07258" target="_blank" rel="noopener">arXiv</a></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">b</span>Competition in the vertical stack<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Korinek, A., &amp; Vipra, J. (2024).</span> Market Concentration Implications of Foundation Models: The Invisible Hand of ChatGPT. <span class="ve">Unpublished manuscript.</span></li>
+          <li><span class="au">McElheran, K., et al. (2024).</span> AI Adoption in America: Who, What, and Where. <span class="ve">Journal of Economics &amp; Management Strategy, 33(2), 375–415.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">c</span>What&rsquo;s new: industry features<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Stanford HAI (2025).</span> <span class="ti">Artificial Intelligence Index Report 2025.</span> <span class="ve">(Charts: parameters by sector, training cost, cost-per-performance, arena convergence.)</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">d</span>AI partnerships<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">U.S. Federal Trade Commission (2024).</span> <span class="ti">Partnerships Between Cloud Service Providers and AI Developers.</span> <span class="ve">FTC 6(b) staff report.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">e</span>Partnerships: theory<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Rey, P., &amp; Tirole, J. (2007).</span> A Primer on Foreclosure. <span class="ve">Handbook of Industrial Organization, Vol. 3, 2145–2220.</span></li>
+          <li><span class="au">Jeon, D.-S., &amp; Lefouili, Y. (2018).</span> Cross-licensing and patent pools. <span class="ve">RAND Journal of Economics.</span></li>
+        </ul></div>
+      </details>
+
+    </div>
+  </details>
+
+  <!-- ==================== 3 ==================== -->
+  <details class="syl-sec">
+    <summary><span class="num">3</span><span class="lbl">AI, jobs, and growth</span><span class="chev">&#9654;</span></summary>
+    <div class="syl-subwrap">
+
+      <details class="syl-sub">
+        <summary><span class="let">a</span>AI as a general-purpose technology<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Brynjolfsson, E., Rock, D., &amp; Syverson, C. (2019).</span> Artificial Intelligence and the Modern Productivity Paradox. <span class="ve">In The Economics of AI: An Agenda. University of Chicago Press.</span> <span class="ve">(Solow paradox; productivity J-curve.)</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">b</span>Jobs and tasks before LLMs<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Brynjolfsson, E., Mitchell, T., &amp; Rock, D. (2018).</span> What Can Machines Learn, and What Does It Mean for Occupations and the Economy? <span class="ve">AEA Papers and Proceedings, 108, 43–47.</span></li>
+          <li><span class="au">Autor, D., Levy, F., &amp; Murnane, R. (2003).</span> The Skill Content of Recent Technological Change. <span class="ve">Quarterly Journal of Economics, 118(4).</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">c</span>Jobs after LLMs: exposure<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Eloundou, T., Manning, S., Mishkin, P., &amp; Rock, D. (2023).</span> GPTs are GPTs: An Early Look at the Labor Market Impact Potential of LLMs. <span class="ve">arXiv:2303.10130.</span> <a href="http://arxiv.org/abs/2303.10130" target="_blank" rel="noopener">arXiv</a></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">d</span>Systematic evidence (RCTs)<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Brynjolfsson, E., Li, D., &amp; Raymond, L. (2025).</span> Generative AI at Work. <span class="ve">Quarterly Journal of Economics (R&amp;R); NBER WP 31161.</span> <span class="ve">(Customer-support field experiment.)</span></li>
+          <li><span class="au">Cui, K. Z., et al. (2025).</span> The Effects of Generative AI on High-Skilled Work: Evidence from Software Developers. <span class="ve">SSRN working paper.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">e</span>Macroeconomics: labor demand<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Acemoglu, D., &amp; Restrepo, P. (2019).</span> Automation and New Tasks: How Technology Displaces and Reinstates Labor. <span class="ve">Journal of Economic Perspectives, 33(2), 3–30.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">f</span>Macroeconomics: productivity and growth<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Acemoglu, D. (2024).</span> The Simple Macroeconomics of AI. <span class="ve">Economic Policy; NBER WP 32487.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">g</span>Adoption<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">McElheran, K., et al. (2024).</span> AI Adoption in America: Who, What, and Where. <span class="ve">Journal of Economics &amp; Management Strategy, 33(2), 375–415.</span></li>
+        </ul></div>
+      </details>
+
+    </div>
+  </details>
+
+  <!-- ==================== 4 ==================== -->
+  <details class="syl-sec">
+    <summary><span class="num">4</span><span class="lbl">Reinforcement learning</span><span class="chev">&#9654;</span></summary>
+    <div class="syl-subwrap">
+
+      <details class="syl-sub">
+        <summary><span class="let">a</span>The Markov decision process framework<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Sutton, R. S., &amp; Barto, A. G. (2018).</span> <span class="ti">Reinforcement Learning: An Introduction (2nd ed.).</span> <span class="ve">MIT Press. (Chapter 1.)</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">b</span>Policies, values, and the Bellman equation<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Sutton, R. S., &amp; Barto, A. G. (2018).</span> <span class="ti">Reinforcement Learning: An Introduction.</span> <span class="ve">MIT Press. (Chapters 3–4; Bellman equations.)</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">c</span>Model-free methods and Q-learning<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Sutton, R. S., &amp; Barto, A. G. (2018).</span> <span class="ti">Reinforcement Learning: An Introduction.</span> <span class="ve">MIT Press. (Chapter 6.)</span></li>
+          <li><span class="au">Watkins, C., &amp; Dayan, P. (1992).</span> Q-learning. <span class="ve">Machine Learning, 8, 279–292. (Convergence theorem.)</span></li>
+        </ul></div>
+      </details>
+
+    </div>
+  </details>
+
+  <!-- ==================== 5 ==================== -->
+  <details class="syl-sec">
+    <summary><span class="num">5</span><span class="lbl">Agentic markets: an overview</span><span class="chev">&#9654;</span></summary>
+    <div class="syl-lone">
+      <div class="syl-refs"><p class="rlab">Readings</p>
+        <p class="none">Overview and taxonomy — synthesises and sets up the readings in Sections 6–10 (agentic sellers, platforms, and buyers).</p>
+      </div>
+    </div>
+  </details>
+
+  <!-- ==================== 6 ==================== -->
+  <details class="syl-sec">
+    <summary><span class="num">6</span><span class="lbl">Agentic sellers: pricing algorithms</span><span class="chev">&#9654;</span></summary>
+    <div class="syl-subwrap">
+
+      <details class="syl-sub">
+        <summary><span class="let">a</span>Introduction: algorithms in markets<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Chen, L., Mislove, A., &amp; Wilson, C. (2016).</span> An Empirical Analysis of Algorithmic Pricing on Amazon Marketplace. <span class="ve">Proceedings of WWW 2016, 1339–1349.</span></li>
+          <li><span class="au">Ezrachi, A., &amp; Stucke, M. (2016).</span> <span class="ti">Virtual Competition.</span> <span class="ve">Harvard University Press.</span></li>
+          <li><span class="au">Harrington, J. (2018).</span> Developing Competition Law for Collusion by Autonomous Artificial Agents. <span class="ve">Journal of Competition Law &amp; Economics.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">b</span>Pricing theory: commitment and competition<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Brown, Z., &amp; MacKay, A. (2021).</span> Competition in Pricing Algorithms. <span class="ve">SSRN working paper.</span> <a href="https://doi.org/10.2139/ssrn.3485024" target="_blank" rel="noopener">doi</a></li>
+          <li><span class="au">O&rsquo;Connor, J., &amp; Wilson, N. (2021).</span> Reduced demand uncertainty and the sustainability of collusion. <span class="ve">Information Economics and Policy, 54, 100882.</span></li>
+          <li><span class="au">Miklós-Thal, J., &amp; Tucker, C. (2019).</span> Collusion by Algorithm: Does Better Demand Prediction Facilitate Coordination? <span class="ve">Management Science.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">c</span>Algorithmic collusion (Calvano, Calzolari, Denicolò, Pastorello)<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., &amp; Pastorello, S. (2020).</span> Artificial Intelligence, Algorithmic Pricing, and Collusion. <span class="ve">American Economic Review, 110(10), 3267–3297.</span> <a href="https://doi.org/10.1257/aer.20190623" target="_blank" rel="noopener">doi</a></li>
+          <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., &amp; Pastorello, S. (2021).</span> Algorithmic collusion with imperfect monitoring. <span class="ve">International Journal of Industrial Organization, 68, 102712.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">d</span>Empirical evidence (German retail gasoline)<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Assad, S., Clark, R., Ershov, D., &amp; Xu, L. (2021).</span> Algorithmic Pricing and Competition: Empirical Evidence from the German Retail Gasoline Market. <span class="ve">SSRN working paper.</span> <a href="https://papers.ssrn.com/abstract=3682021" target="_blank" rel="noopener">ssrn</a></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">e</span>Field experiment on Amazon<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Bramante, R., Calzolari, G., &amp; Schäfer, M. (2024).</span> A field experiment on algorithmic pricing on Amazon. <span class="ve">Working paper.</span></li>
+        </ul></div>
+      </details>
+
+    </div>
+  </details>
+
+  <!-- ==================== 7 ==================== -->
+  <details class="syl-sec">
+    <summary><span class="num">7</span><span class="lbl">Agentic platforms: recommender systems</span><span class="chev">&#9654;</span></summary>
+    <div class="syl-subwrap">
+
+      <details class="syl-sub">
+        <summary><span class="let">a</span>Introduction and sources of power<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Aggarwal, C. C. (2016).</span> <span class="ti">Recommender Systems: The Textbook.</span> <span class="ve">Springer. (Chapters 2–3.)</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">b</span>Quantifying the power of Spotify<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Aguiar, L., &amp; Waldfogel, J. (2021).</span> Platforms, Power, and Promotion: Evidence from Spotify Playlists. <span class="ve">Journal of Industrial Economics, 69(3), 653–691.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">c</span>Recommender systems: definition and economics<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Amatriain, X. (2013).</span> Big &amp; Personal: data and models behind Netflix recommendations. <span class="ve">Proceedings of the 2nd Int. Workshop on Big Data, Streams and Heterogeneous Source Mining.</span></li>
+          <li><span class="au">Aggarwal, C. C. (2016).</span> <span class="ti">Recommender Systems: The Textbook.</span> <span class="ve">Springer.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">d</span>Recommender systems and competition<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., &amp; Pastorello, S. (2025).</span> Artificial Intelligence, Algorithmic Recommendations and Competition. <span class="ve">SSRN.</span> <a href="https://doi.org/10.2139/ssrn.4448010" target="_blank" rel="noopener">doi</a></li>
+          <li><span class="au">Lee, K. H., &amp; Musolff, L. (2024).</span> Entry into two-sided markets shaped by platform-guided search. <span class="ve">R&amp;R Econometrica.</span></li>
+        </ul></div>
+      </details>
+
+    </div>
+  </details>
+
+  <!-- ==================== 8 ==================== -->
+  <details class="syl-sec">
+    <summary><span class="num">8</span><span class="lbl">Agentic platforms: choice manipulation</span><span class="chev">&#9654;</span></summary>
+    <div class="syl-subwrap">
+
+      <details class="syl-sub">
+        <summary><span class="let">a</span>Framework: manipulating choices<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Kamenica, E., &amp; Gentzkow, M. (2011).</span> Bayesian Persuasion. <span class="ve">American Economic Review, 101(6), 2590–2615.</span> <a href="https://doi.org/10.1257/aer.101.6.2590" target="_blank" rel="noopener">doi</a></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">b</span>Inflated recommendations (Peitz and Sobolev)<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Peitz, M., &amp; Sobolev, A. (2022).</span> Inflated Recommendations. <span class="ve">Working paper.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">c</span>Self-preferencing (Aridor and Gonçalves)<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Aridor, G., &amp; Gonçalves, D. (2022).</span> Self-preferencing by a vertically-integrated intermediary. <span class="ve">Working paper.</span></li>
+          <li><span class="au">Farronato, C., Fradkin, A., &amp; MacKay, A. (2024).</span> Self-Preferencing at Amazon: Evidence from Search Rankings. <span class="ve">NBER WP 30894.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">d</span>Playing it safe (Calvano and Jullien)<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Calvano, E., &amp; Jullien, B. (2022).</span> Playing it Safe: Reputation and Cautious Recommendations. <span class="ve">Working paper.</span></li>
+        </ul></div>
+      </details>
+
+    </div>
+  </details>
+
+  <!-- ==================== 9 ==================== -->
+  <details class="syl-sec">
+    <summary><span class="num">9</span><span class="lbl">Agentic buyers</span><span class="chev">&#9654;</span></summary>
+    <div class="syl-lone">
+      <div class="syl-refs"><p class="rlab">Readings</p><ul>
+        <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., &amp; Pastorello, S. (2020).</span> Artificial Intelligence, Algorithmic Pricing, and Collusion. <span class="ve">American Economic Review, 110(10).</span> <span class="ve">(Benchmark: agentic buyers facing colluding sellers; ongoing work.)</span></li>
+      </ul></div>
+    </div>
+  </details>
+
+  <!-- ==================== 10 ==================== -->
+  <details class="syl-sec">
+    <summary><span class="num">10</span><span class="lbl">Algorithms and public policy</span><span class="chev">&#9654;</span></summary>
+    <div class="syl-subwrap">
+
+      <details class="syl-sub">
+        <summary><span class="let">a</span>Broad policy challenges<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Agrawal, A., Gans, J., &amp; Goldfarb, A. (2019).</span> Economic Policy for Artificial Intelligence. <span class="ve">Innovation Policy and the Economy, 19. University of Chicago Press.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">b</span>Why is AI different?<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p>
+          <p class="none">Conceptual discussion — draws on the theory-of-harm readings in 10d–10f.</p>
+        </div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">c</span>The policy landscape: DMA, DSA, AI Act<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">European Union.</span> Digital Markets Act (Reg. 2022/1925); Digital Services Act (Reg. 2022/2065); Artificial Intelligence Act (Reg. 2024/1689).</li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">d</span>Application: tackling algorithmic bias<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Cowgill, B., &amp; Tucker, C. (2020).</span> Algorithmic Fairness and Economics. <span class="ve">(Prepared for the Journal of Economic Perspectives.)</span></li>
+          <li><span class="au">Lambrecht, A., &amp; Tucker, C. (2019).</span> Algorithmic Bias? An Empirical Study of Apparent Gender-Based Discrimination in the Display of STEM Career Ads. <span class="ve">Management Science, 65(7), 2966–2981.</span></li>
+          <li><span class="au">Rambachan, A., Kleinberg, J., Ludwig, J., &amp; Mullainathan, S. (2020).</span> An Economic Approach to Regulating Algorithms. <span class="ve">Working paper.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">e</span>Application: tackling algorithmic collusion<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., &amp; Pastorello, S. (2020).</span> Protecting consumers from collusive prices due to AI. <span class="ve">Science, 370(6520), 1040–1042.</span></li>
+          <li><span class="au">Johnson, J., Rhodes, A., &amp; Wildenbeest, M. (2023).</span> Platform Design When Sellers Use Pricing Algorithms. <span class="ve">Econometrica, 91(5), 1841–1879.</span> <span class="ve">(Buy box / price-directed prominence.)</span></li>
+          <li><span class="au">Budish, E., Cramton, P., &amp; Shim, J. (2015).</span> The High-Frequency Trading Arms Race: Frequent Batch Auctions. <span class="ve">Quarterly Journal of Economics, 130(4).</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">f</span>Data-driven incumbency advantage<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Hagiu, A., &amp; Wright, J. (2023).</span> Data-enabled learning, network effects, and competitive advantage. <span class="ve">RAND Journal of Economics, 54(4), 638–667.</span></li>
+          <li><span class="au">Bajari, P., et al. (2019).</span> The Impact of Big Data on Firm Performance: An Empirical Investigation. <span class="ve">AEA Papers and Proceedings, 109.</span></li>
+        </ul></div>
+      </details>
+
+      <details class="syl-sub">
+        <summary><span class="let">g</span>Looking ahead<span class="chev">&#9654;</span></summary>
+        <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Bramante, R., Calzolari, G., &amp; Schäfer, M. (2024).</span> A field experiment on algorithmic pricing on Amazon. <span class="ve">Working paper.</span></li>
+        </ul></div>
+      </details>
+
+    </div>
+  </details>
+
+  <p class="syl-note">
+    Readings are mapped to the subsection where they were discussed in class. Some entries are
+    working papers; bibliographic details may still be provisional. A printable
+    <a href="assets/EoAI-2026-BSE-Final-Syllabus.pdf">PDF version</a> of the full syllabus is also available.
+  </p>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <a href="privacy.html">Privacy &amp; analytics</a>
+</footer>
+
+<script>
+(function () {
+  var all = function (sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); };
+  var ex = document.getElementById('syl-expand');
+  var co = document.getElementById('syl-collapse');
+  if (ex) ex.addEventListener('click', function () { all('.syl details').forEach(function (d) { d.open = true; }); });
+  if (co) co.addEventListener('click', function () { all('.syl details').forEach(function (d) { d.open = false; }); });
+})();
+</script>
+<script src="assets/analytics-config.js"></script>
+<script src="assets/track.js"></script>
+</body>
+</html>
