@@ -51,7 +51,16 @@
 .syl-head .who a:hover { text-decoration: underline; }
 .syl-head .brand img { height: 34px; width: auto; display: block; }
 
-.syl-intro { color: #444; font-size: 16px; line-height: 1.6; margin: 22px 0 10px; max-width: 760px; }
+.syl-meta {
+  margin: 16px 0 0;
+  font-size: 14.5px;
+  color: #444;
+  border-left: 3px solid var(--syl-red);
+  padding: 4px 0 4px 12px;
+}
+.syl-meta a { color: var(--syl-blue); text-decoration: none; }
+.syl-meta a:hover { text-decoration: underline; }
+.syl-intro { color: #444; font-size: 16px; line-height: 1.6; margin: 18px 0 10px; max-width: 760px; }
 
 /* ---- toolbar ---- */
 .syl-tools { margin: 18px 0 22px; font-size: 14px; }
@@ -170,6 +179,18 @@
 .syl-refs a:hover { text-decoration: underline; }
 .syl-refs .none { color: #888; font-style: italic; }
 
+/* ---- consolidated bibliography ---- */
+.syl-biblio { margin: 46px 0 0; border-top: 3px solid var(--syl-blue); padding-top: 18px; }
+.syl-biblio h2 { color: var(--syl-blue); font-family: inherit; font-weight: 600; font-size: 24px; margin: 0 0 4px; }
+.syl-biblio .bl-lead { color: #666; font-size: 14px; margin: 0 0 18px; }
+.syl-biblio ul { margin: 0; padding: 0; list-style: none; }
+.syl-biblio li { font-size: 14px; line-height: 1.5; margin: 0 0 11px; padding-left: 1.6em; text-indent: -1.6em; color: #222; }
+.syl-biblio .au { color: #111; }
+.syl-biblio .ti { font-style: italic; }
+.syl-biblio .ve { color: #555; }
+.syl-biblio a { color: var(--syl-blue); text-decoration: none; }
+.syl-biblio a:hover { text-decoration: underline; }
+
 .syl-note { color: var(--muted, #9a9a9a); font-size: 13px; margin: 30px 0 0; max-width: 760px; line-height: 1.5; }
 
 @media (max-width: 640px) {
@@ -204,6 +225,8 @@
       <a href="https://bse.eu/summer-school/digital-economy/economics-artificial-intelligence" target="_blank" rel="noopener"><img src="assets/logo-bse.svg" alt="Barcelona School of Economics"></a>
     </div>
   </header>
+
+  <p class="syl-meta">A 10-hour short course. Lecture slides are available on request from <a href="cv.html">the instructor</a>.</p>
 
   <p class="syl-intro">
     The course is modular. Below is the full map of what was covered, arranged as a tree:
@@ -240,6 +263,7 @@
       <details class="syl-sub">
         <summary><span class="let">c</span>Reinforcement learning<span class="chev">&#9654;</span></summary>
         <div class="syl-refs"><p class="rlab">Readings</p><ul>
+          <li><span class="au">Sutton, R. S., &amp; Barto, A. G. (2018).</span> <span class="ti">Reinforcement Learning: An Introduction (2nd ed.).</span> <span class="ve">MIT Press.</span></li>
           <li><span class="au">Mnih, V., et al. (2015).</span> Human-level control through deep reinforcement learning. <span class="ve">Nature, 518, 529–533.</span> <span class="ve">(Atari / Deep Q-learning.)</span></li>
           <li><span class="au">Silver, D., et al. (2018).</span> A general reinforcement learning algorithm that masters chess, shogi and Go through self-play. <span class="ve">Science, 362(6419), 1140–1144.</span> <span class="ve">(AlphaZero.)</span></li>
         </ul></div>
@@ -293,7 +317,7 @@
       <details class="syl-sub">
         <summary><span class="let">b</span>Competition in the vertical stack<span class="chev">&#9654;</span></summary>
         <div class="syl-refs"><p class="rlab">Readings</p><ul>
-          <li><span class="au">Korinek, A., &amp; Vipra, J. (2024).</span> Market Concentration Implications of Foundation Models: The Invisible Hand of ChatGPT. <span class="ve">Unpublished manuscript.</span></li>
+          <li><span class="au">Korinek, A., &amp; Vipra, J. (2024).</span> Market Concentration Implications of Foundation Models: The Invisible Hand of ChatGPT. <span class="ve">Working paper (NBER; Economic Policy).</span></li>
           <li><span class="au">McElheran, K., et al. (2024).</span> AI Adoption in America: Who, What, and Where. <span class="ve">Journal of Economics &amp; Management Strategy, 33(2), 375–415.</span></li>
         </ul></div>
       </details>
@@ -353,7 +377,7 @@
       <details class="syl-sub">
         <summary><span class="let">d</span>Systematic evidence (RCTs)<span class="chev">&#9654;</span></summary>
         <div class="syl-refs"><p class="rlab">Readings</p><ul>
-          <li><span class="au">Brynjolfsson, E., Li, D., &amp; Raymond, L. (2025).</span> Generative AI at Work. <span class="ve">Quarterly Journal of Economics (R&amp;R); NBER WP 31161.</span> <span class="ve">(Customer-support field experiment.)</span></li>
+          <li><span class="au">Brynjolfsson, E., Li, D., &amp; Raymond, L. (2025).</span> Generative AI at Work. <span class="ve">Quarterly Journal of Economics, 140(2), 889–942.</span> <span class="ve">(Customer-support field experiment.)</span></li>
           <li><span class="au">Cui, K. Z., et al. (2025).</span> The Effects of Generative AI on High-Skilled Work: Evidence from Software Developers. <span class="ve">SSRN working paper.</span></li>
         </ul></div>
       </details>
@@ -439,7 +463,7 @@
       <details class="syl-sub">
         <summary><span class="let">b</span>Pricing theory: commitment and competition<span class="chev">&#9654;</span></summary>
         <div class="syl-refs"><p class="rlab">Readings</p><ul>
-          <li><span class="au">Brown, Z., &amp; MacKay, A. (2021).</span> Competition in Pricing Algorithms. <span class="ve">SSRN working paper.</span> <a href="https://doi.org/10.2139/ssrn.3485024" target="_blank" rel="noopener">doi</a></li>
+          <li><span class="au">Brown, Z., &amp; MacKay, A. (2023).</span> Competition in Pricing Algorithms. <span class="ve">American Economic Journal: Microeconomics, 15(2), 109–156 (working paper 2021).</span></li>
           <li><span class="au">O&rsquo;Connor, J., &amp; Wilson, N. (2021).</span> Reduced demand uncertainty and the sustainability of collusion. <span class="ve">Information Economics and Policy, 54, 100882.</span></li>
           <li><span class="au">Miklós-Thal, J., &amp; Tucker, C. (2019).</span> Collusion by Algorithm: Does Better Demand Prediction Facilitate Coordination? <span class="ve">Management Science.</span></li>
         </ul></div>
@@ -449,21 +473,21 @@
         <summary><span class="let">c</span>Algorithmic collusion (Calvano, Calzolari, Denicolò, Pastorello)<span class="chev">&#9654;</span></summary>
         <div class="syl-refs"><p class="rlab">Readings</p><ul>
           <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., &amp; Pastorello, S. (2020).</span> Artificial Intelligence, Algorithmic Pricing, and Collusion. <span class="ve">American Economic Review, 110(10), 3267–3297.</span> <a href="https://doi.org/10.1257/aer.20190623" target="_blank" rel="noopener">doi</a></li>
-          <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., &amp; Pastorello, S. (2021).</span> Algorithmic collusion with imperfect monitoring. <span class="ve">International Journal of Industrial Organization, 68, 102712.</span></li>
+          <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., &amp; Pastorello, S. (2021).</span> Algorithmic collusion with imperfect monitoring. <span class="ve">International Journal of Industrial Organization, 79, 102712.</span></li>
         </ul></div>
       </details>
 
       <details class="syl-sub">
         <summary><span class="let">d</span>Empirical evidence (German retail gasoline)<span class="chev">&#9654;</span></summary>
         <div class="syl-refs"><p class="rlab">Readings</p><ul>
-          <li><span class="au">Assad, S., Clark, R., Ershov, D., &amp; Xu, L. (2021).</span> Algorithmic Pricing and Competition: Empirical Evidence from the German Retail Gasoline Market. <span class="ve">SSRN working paper.</span> <a href="https://papers.ssrn.com/abstract=3682021" target="_blank" rel="noopener">ssrn</a></li>
+          <li><span class="au">Assad, S., Clark, R., Ershov, D., &amp; Xu, L. (2024).</span> Algorithmic Pricing and Competition: Empirical Evidence from the German Retail Gasoline Market. <span class="ve">Journal of Political Economy, 132(3), 723–771 (working paper 2021).</span></li>
         </ul></div>
       </details>
 
       <details class="syl-sub">
         <summary><span class="let">e</span>Field experiment on Amazon<span class="chev">&#9654;</span></summary>
         <div class="syl-refs"><p class="rlab">Readings</p><ul>
-          <li><span class="au">Bramante, R., Calzolari, G., &amp; Schäfer, M. (2024).</span> A field experiment on algorithmic pricing on Amazon. <span class="ve">Working paper.</span></li>
+          <li><span class="au">Bramante, R., Calvano, E., Calzolari, G., &amp; Schäfer, M. (2022).</span> A field experiment on algorithmic pricing on Amazon (&ldquo;Algorithms in the Wild&rdquo;). <span class="ve">Working paper.</span></li>
         </ul></div>
       </details>
 
@@ -523,15 +547,15 @@
       <details class="syl-sub">
         <summary><span class="let">b</span>Inflated recommendations (Peitz and Sobolev)<span class="chev">&#9654;</span></summary>
         <div class="syl-refs"><p class="rlab">Readings</p><ul>
-          <li><span class="au">Peitz, M., &amp; Sobolev, A. (2022).</span> Inflated Recommendations. <span class="ve">Working paper.</span></li>
+          <li><span class="au">Peitz, M., &amp; Sobolev, A. (2022).</span> Inflated Recommendations. <span class="ve">RAND Journal of Economics, 54(4) (2025); working paper 2022.</span></li>
         </ul></div>
       </details>
 
       <details class="syl-sub">
         <summary><span class="let">c</span>Self-preferencing (Aridor and Gonçalves)<span class="chev">&#9654;</span></summary>
         <div class="syl-refs"><p class="rlab">Readings</p><ul>
-          <li><span class="au">Aridor, G., &amp; Gonçalves, D. (2022).</span> Self-preferencing by a vertically-integrated intermediary. <span class="ve">Working paper.</span></li>
-          <li><span class="au">Farronato, C., Fradkin, A., &amp; MacKay, A. (2024).</span> Self-Preferencing at Amazon: Evidence from Search Rankings. <span class="ve">NBER WP 30894.</span></li>
+          <li><span class="au">Aridor, G., &amp; Gonçalves, D. (2022).</span> Self-preferencing by a vertically-integrated intermediary. <span class="ve">International Journal of Industrial Organization, 83, 102850.</span></li>
+          <li><span class="au">Farronato, C., Fradkin, A., &amp; MacKay, A. (2023).</span> Self-Preferencing at Amazon: Evidence from Search Rankings. <span class="ve">NBER Working Paper 30894; AEA Papers and Proceedings, 113.</span></li>
         </ul></div>
       </details>
 
@@ -593,7 +617,7 @@
       <details class="syl-sub">
         <summary><span class="let">e</span>Application: tackling algorithmic collusion<span class="chev">&#9654;</span></summary>
         <div class="syl-refs"><p class="rlab">Readings</p><ul>
-          <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., &amp; Pastorello, S. (2020).</span> Protecting consumers from collusive prices due to AI. <span class="ve">Science, 370(6520), 1040–1042.</span></li>
+          <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., Harrington, J. E., &amp; Pastorello, S. (2020).</span> Protecting consumers from collusive prices due to AI. <span class="ve">Science, 370(6520), 1040–1042.</span></li>
           <li><span class="au">Johnson, J., Rhodes, A., &amp; Wildenbeest, M. (2023).</span> Platform Design When Sellers Use Pricing Algorithms. <span class="ve">Econometrica, 91(5), 1841–1879.</span> <span class="ve">(Buy box / price-directed prominence.)</span></li>
           <li><span class="au">Budish, E., Cramton, P., &amp; Shim, J. (2015).</span> The High-Frequency Trading Arms Race: Frequent Batch Auctions. <span class="ve">Quarterly Journal of Economics, 130(4).</span></li>
         </ul></div>
@@ -610,12 +634,75 @@
       <details class="syl-sub">
         <summary><span class="let">g</span>Looking ahead<span class="chev">&#9654;</span></summary>
         <div class="syl-refs"><p class="rlab">Readings</p><ul>
-          <li><span class="au">Bramante, R., Calzolari, G., &amp; Schäfer, M. (2024).</span> A field experiment on algorithmic pricing on Amazon. <span class="ve">Working paper.</span></li>
+          <li><span class="au">Bramante, R., Calvano, E., Calzolari, G., &amp; Schäfer, M. (2022).</span> A field experiment on algorithmic pricing on Amazon (&ldquo;Algorithms in the Wild&rdquo;). <span class="ve">Working paper.</span></li>
         </ul></div>
       </details>
 
     </div>
   </details>
+
+  <!-- ==================== full bibliography ==================== -->
+  <section class="syl-biblio">
+    <h2>References</h2>
+    <p class="bl-lead">Full list of readings, consolidated and alphabetical.</p>
+    <ul>
+      <li><span class="au">Acemoglu, D. (2024).</span> The Simple Macroeconomics of AI. <span class="ve">Economic Policy, 40(121), 13–58 (2025); NBER Working Paper 32487.</span></li>
+      <li><span class="au">Acemoglu, D., &amp; Restrepo, P. (2019).</span> Automation and New Tasks: How Technology Displaces and Reinstates Labor. <span class="ve">Journal of Economic Perspectives, 33(2), 3–30.</span></li>
+      <li><span class="au">Aggarwal, C. C. (2016).</span> <span class="ti">Recommender Systems: The Textbook.</span> <span class="ve">Springer.</span></li>
+      <li><span class="au">Agrawal, A., Gans, J., &amp; Goldfarb, A. (2018).</span> <span class="ti">Prediction Machines: The Simple Economics of Artificial Intelligence.</span> <span class="ve">Harvard Business Review Press.</span></li>
+      <li><span class="au">Agrawal, A., Gans, J., &amp; Goldfarb, A. (2019).</span> Economic Policy for Artificial Intelligence. <span class="ve">Innovation Policy and the Economy, 19, 139–159. University of Chicago Press.</span></li>
+      <li><span class="au">Agrawal, A., Gans, J., &amp; Goldfarb, A. (2022).</span> <span class="ti">Power and Prediction: The Disruptive Economics of Artificial Intelligence.</span> <span class="ve">Harvard Business Review Press.</span></li>
+      <li><span class="au">Aguiar, L., &amp; Waldfogel, J. (2021).</span> Platforms, Power, and Promotion: Evidence from Spotify Playlists. <span class="ve">Journal of Industrial Economics, 69(3), 653–691.</span></li>
+      <li><span class="au">Amatriain, X. (2013).</span> Big &amp; Personal: Data and Models Behind Netflix Recommendations. <span class="ve">Proceedings of the 2nd Int. Workshop on Big Data, Streams and Heterogeneous Source Mining (BigMine).</span></li>
+      <li><span class="au">Aridor, G., &amp; Gonçalves, D. (2022).</span> Self-preferencing by a vertically-integrated intermediary. <span class="ve">International Journal of Industrial Organization, 83, 102850.</span></li>
+      <li><span class="au">Assad, S., Clark, R., Ershov, D., &amp; Xu, L. (2024).</span> Algorithmic Pricing and Competition: Empirical Evidence from the German Retail Gasoline Market. <span class="ve">Journal of Political Economy, 132(3), 723–771 (working paper 2021).</span></li>
+      <li><span class="au">Athey, S. (2019).</span> The Impact of Machine Learning on Economics. <span class="ve">In The Economics of Artificial Intelligence: An Agenda (pp. 507–552). University of Chicago Press.</span></li>
+      <li><span class="au">Autor, D., Levy, F., &amp; Murnane, R. (2003).</span> The Skill Content of Recent Technological Change: An Empirical Exploration. <span class="ve">Quarterly Journal of Economics, 118(4), 1279–1333.</span></li>
+      <li><span class="au">Bajari, P., Chernozhukov, V., Hortaçsu, A., &amp; Suzuki, J. (2019).</span> The Impact of Big Data on Firm Performance: An Empirical Investigation. <span class="ve">AEA Papers and Proceedings, 109, 33–37.</span></li>
+      <li><span class="au">Bommasani, R., et al. (2021).</span> On the Opportunities and Risks of Foundation Models. <span class="ve">arXiv:2108.07258.</span></li>
+      <li><span class="au">Bramante, R., Calvano, E., Calzolari, G., &amp; Schäfer, M. (2022).</span> A field experiment on algorithmic pricing on Amazon (&ldquo;Algorithms in the Wild&rdquo;). <span class="ve">Working paper.</span></li>
+      <li><span class="au">Brown, Z., &amp; MacKay, A. (2023).</span> Competition in Pricing Algorithms. <span class="ve">American Economic Journal: Microeconomics, 15(2), 109–156 (working paper 2021).</span></li>
+      <li><span class="au">Brynjolfsson, E., Li, D., &amp; Raymond, L. (2025).</span> Generative AI at Work. <span class="ve">Quarterly Journal of Economics, 140(2), 889–942.</span></li>
+      <li><span class="au">Brynjolfsson, E., Mitchell, T., &amp; Rock, D. (2018).</span> What Can Machines Learn, and What Does It Mean for Occupations and the Economy? <span class="ve">AEA Papers and Proceedings, 108, 43–47.</span></li>
+      <li><span class="au">Brynjolfsson, E., Rock, D., &amp; Syverson, C. (2019).</span> Artificial Intelligence and the Modern Productivity Paradox. <span class="ve">In The Economics of Artificial Intelligence: An Agenda (pp. 23–60). University of Chicago Press.</span></li>
+      <li><span class="au">Budish, E., Cramton, P., &amp; Shim, J. (2015).</span> The High-Frequency Trading Arms Race: Frequent Batch Auctions as a Market Design Response. <span class="ve">Quarterly Journal of Economics, 130(4), 1547–1621.</span></li>
+      <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., &amp; Pastorello, S. (2020).</span> Artificial Intelligence, Algorithmic Pricing, and Collusion. <span class="ve">American Economic Review, 110(10), 3267–3297.</span></li>
+      <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., Harrington, J. E., &amp; Pastorello, S. (2020).</span> Protecting consumers from collusive prices due to AI. <span class="ve">Science, 370(6520), 1040–1042.</span></li>
+      <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., &amp; Pastorello, S. (2021).</span> Algorithmic collusion with imperfect monitoring. <span class="ve">International Journal of Industrial Organization, 79, 102712.</span></li>
+      <li><span class="au">Calvano, E., Calzolari, G., Denicolò, V., &amp; Pastorello, S. (2025).</span> Artificial Intelligence, Algorithmic Recommendations and Competition. <span class="ve">SSRN 4448010.</span></li>
+      <li><span class="au">Calvano, E., &amp; Jullien, B. (2022).</span> Playing it Safe: Reputation and Cautious Recommendations. <span class="ve">Working paper.</span></li>
+      <li><span class="au">Chen, L., Mislove, A., &amp; Wilson, C. (2016).</span> An Empirical Analysis of Algorithmic Pricing on Amazon Marketplace. <span class="ve">Proceedings of WWW 2016, 1339–1349.</span></li>
+      <li><span class="au">Cowgill, B., &amp; Tucker, C. (2020).</span> Algorithmic Fairness and Economics. <span class="ve">Working paper (prepared for the Journal of Economic Perspectives).</span></li>
+      <li><span class="au">Cui, K. Z., Demirer, M., Jaffe, S., Musolff, L., Peng, S., &amp; Salz, T. (2025).</span> The Effects of Generative AI on High-Skilled Work: Evidence from Software Developers. <span class="ve">SSRN; Management Science.</span></li>
+      <li><span class="au">Eloundou, T., Manning, S., Mishkin, P., &amp; Rock, D. (2023).</span> GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models. <span class="ve">arXiv:2303.10130.</span></li>
+      <li><span class="au">European Union.</span> Digital Markets Act (Regulation 2022/1925); Digital Services Act (Regulation 2022/2065); Artificial Intelligence Act (Regulation 2024/1689).</li>
+      <li><span class="au">Ezrachi, A., &amp; Stucke, M. (2016).</span> <span class="ti">Virtual Competition: The Promise and Perils of the Algorithm-Driven Economy.</span> <span class="ve">Harvard University Press.</span></li>
+      <li><span class="au">Farronato, C., Fradkin, A., &amp; MacKay, A. (2023).</span> Self-Preferencing at Amazon: Evidence from Search Rankings. <span class="ve">NBER Working Paper 30894; AEA Papers and Proceedings, 113.</span></li>
+      <li><span class="au">Hagiu, A., &amp; Wright, J. (2023).</span> Data-enabled learning, network effects, and competitive advantage. <span class="ve">RAND Journal of Economics, 54(4), 638–667.</span></li>
+      <li><span class="au">Hardt, M., Megiddo, N., Papadimitriou, C., &amp; Wootters, M. (2015).</span> Strategic Classification. <span class="ve">arXiv:1506.06980; Proc. ACM ITCS 2016, 111–122.</span></li>
+      <li><span class="au">Harrington, J. (2018).</span> Developing Competition Law for Collusion by Autonomous Artificial Agents. <span class="ve">Journal of Competition Law &amp; Economics, 14(3), 331–363.</span></li>
+      <li><span class="au">Jeon, D.-S., &amp; Lefouili, Y. (2018).</span> Cross-licensing and competition. <span class="ve">RAND Journal of Economics, 49(3), 656–671.</span></li>
+      <li><span class="au">Johnson, J., Rhodes, A., &amp; Wildenbeest, M. (2023).</span> Platform Design When Sellers Use Pricing Algorithms. <span class="ve">Econometrica, 91(5), 1841–1879.</span></li>
+      <li><span class="au">Kamenica, E., &amp; Gentzkow, M. (2011).</span> Bayesian Persuasion. <span class="ve">American Economic Review, 101(6), 2590–2615.</span></li>
+      <li><span class="au">Korinek, A., &amp; Vipra, J. (2024).</span> Market Concentration Implications of Foundation Models. <span class="ve">Working paper; NBER Working Paper series; Economic Policy.</span></li>
+      <li><span class="au">Lambrecht, A., &amp; Tucker, C. (2019).</span> Algorithmic Bias? An Empirical Study of Apparent Gender-Based Discrimination in the Display of STEM Career Ads. <span class="ve">Management Science, 65(7), 2966–2981.</span></li>
+      <li><span class="au">Lee, K. H., &amp; Musolff, L. (2024).</span> Entry into Two-Sided Markets Shaped by Platform-Guided Search. <span class="ve">Working paper (R&amp;R, Econometrica).</span></li>
+      <li><span class="au">McElheran, K., et al. (2024).</span> AI Adoption in America: Who, What, and Where. <span class="ve">Journal of Economics &amp; Management Strategy, 33(2), 375–415.</span></li>
+      <li><span class="au">Miklós-Thal, J., &amp; Tucker, C. (2019).</span> Collusion by Algorithm: Does Better Demand Prediction Facilitate Coordination Between Sellers? <span class="ve">Management Science, 65(4), 1552–1561.</span></li>
+      <li><span class="au">Mnih, V., et al. (2015).</span> Human-level control through deep reinforcement learning. <span class="ve">Nature, 518, 529–533.</span></li>
+      <li><span class="au">Mullainathan, S., &amp; Spiess, J. (2017).</span> Machine Learning: An Applied Econometric Approach. <span class="ve">Journal of Economic Perspectives, 31(2), 87–106.</span></li>
+      <li><span class="au">O&rsquo;Connor, J., &amp; Wilson, N. (2021).</span> Reduced demand uncertainty and the sustainability of collusion: How AI could affect competition. <span class="ve">Information Economics and Policy, 54, 100882.</span></li>
+      <li><span class="au">Peitz, M., &amp; Sobolev, A. (2022).</span> Inflated Recommendations. <span class="ve">RAND Journal of Economics, 54(4) (2025); working paper 2022.</span></li>
+      <li><span class="au">Perrault, R., &amp; Clark, J. (2024).</span> <span class="ti">Artificial Intelligence Index Report 2024.</span> <span class="ve">Stanford HAI.</span></li>
+      <li><span class="au">Poole, D., Mackworth, A., &amp; Goebel, R. (1998).</span> <span class="ti">Computational Intelligence: A Logical Approach.</span> <span class="ve">Oxford University Press.</span></li>
+      <li><span class="au">Rambachan, A., Kleinberg, J., Ludwig, J., &amp; Mullainathan, S. (2020).</span> An Economic Approach to Regulating Algorithms. <span class="ve">Working paper; NBER Working Paper 27111.</span></li>
+      <li><span class="au">Rey, P., &amp; Tirole, J. (2007).</span> A Primer on Foreclosure. <span class="ve">In Handbook of Industrial Organization (Vol. 3, pp. 2145–2220). North-Holland.</span></li>
+      <li><span class="au">Silver, D., et al. (2018).</span> A general reinforcement learning algorithm that masters chess, shogi and Go through self-play. <span class="ve">Science, 362(6419), 1140–1144.</span></li>
+      <li><span class="au">Stanford HAI (2025).</span> <span class="ti">Artificial Intelligence Index Report 2025.</span> <span class="ve">Stanford University.</span></li>
+      <li><span class="au">Sutton, R. S., &amp; Barto, A. G. (2018).</span> <span class="ti">Reinforcement Learning: An Introduction (2nd ed.).</span> <span class="ve">MIT Press.</span></li>
+      <li><span class="au">Watkins, C., &amp; Dayan, P. (1992).</span> Q-learning. <span class="ve">Machine Learning, 8, 279–292.</span></li>
+    </ul>
+  </section>
 
   <p class="syl-note">
     Readings are mapped to the subsection where they were discussed in class. Some entries are
