@@ -8,8 +8,8 @@
 <style>
   :root{
     --ink:#2e2e2e; --muted:#8a8a8a; --line:#e6e6e6; --bg:#fff;
-    --inno:#7a1f1f; --dig:#1f5f7a; --io:#3f6b3a;
-    --inno-bg:#f6ecec; --dig-bg:#e9f1f4; --io-bg:#eaf1e9;
+    --inno:#7a1f1f; --dig:#1f5f7a; --io:#3f6b3a; --ent:#6a3f7a;
+    --inno-bg:#f6ecec; --dig-bg:#e9f1f4; --io-bg:#eaf1e9; --ent-bg:#f1ecf4;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html{-webkit-text-size-adjust:100%;}
@@ -37,6 +37,7 @@
   .chip[data-f="inno"][aria-pressed="true"]{background:var(--inno);}
   .chip[data-f="dig"][aria-pressed="true"]{background:var(--dig);}
   .chip[data-f="io"][aria-pressed="true"]{background:var(--io);}
+  .chip[data-f="ent"][aria-pressed="true"]{background:var(--ent);}
 
   .toolbar{display:flex;justify-content:space-between;align-items:center;
     padding:10px 2px 2px;font-size:12.5px;color:var(--muted);}
@@ -61,6 +62,7 @@
   .tag.inno{color:var(--inno);background:var(--inno-bg);}
   .tag.dig{color:var(--dig);background:var(--dig-bg);}
   .tag.io{color:var(--io);background:var(--io-bg);}
+  .tag.ent{color:var(--ent);background:var(--ent-bg);}
   .tag.joint{color:#fff;background:var(--muted);}
   .title{font-weight:500;font-size:15px;line-height:1.35;}
   .paper .title{color:var(--ink);}
@@ -96,12 +98,13 @@
 <div class="wrap">
   <header>
     <h1>NBER Summer Institute 2026</h1>
-    <div class="sub">Innovation · Digital Economics &amp; AI · Industrial Organization<br>
-    <b>July 21–24, 2026</b> · Royal Sonesta Hotel, Cambridge MA</div>
+    <div class="sub">Entrepreneurship · Innovation · Digital Economics &amp; AI · Industrial Organization<br>
+    <b>July 20–24, 2026</b> · Royal Sonesta Hotel, Cambridge MA</div>
   </header>
 
   <div class="filters" id="filters">
     <button class="chip" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" data-f="ent" aria-pressed="false"><span class="dot" style="background:var(--ent)"></span>Entrepreneurship</button>
     <button class="chip" data-f="inno" aria-pressed="false"><span class="dot" style="background:var(--inno)"></span>Innovation</button>
     <button class="chip" data-f="dig" aria-pressed="false"><span class="dot" style="background:var(--dig)"></span>Digital Econ &amp; AI</button>
     <button class="chip" data-f="io" aria-pressed="false"><span class="dot" style="background:var(--io)"></span>IO</button>
@@ -115,9 +118,10 @@
   <div id="agenda"></div>
 
   <div class="note">
-    Rooms: Innovation &amp; Digital Economics/AI in <b>Ballroom A</b>; Industrial Organization in <b>Charles AB</b>.
+    Rooms: Entrepreneurship, Innovation &amp; Digital Economics/AI in <b>Ballroom A</b>; Industrial Organization in <b>Charles AB</b>.
     Joint sessions are held in Ballroom A. Tap any paper to see authors and discussant.<br>
-    Source: NBER printable agendas (<a href="https://www.nber.org/conferences/si-2026-innovation">Innovation</a>,
+    Source: NBER printable agendas (<a href="https://www.nber.org/conferences/si-2026-entrepreneurship">Entrepreneurship</a>,
+    <a href="https://www.nber.org/conferences/si-2026-innovation">Innovation</a>,
     <a href="https://www.nber.org/conferences/si-2026-digital-economics-and-artificial-intelligence">Digital Econ &amp; AI</a>,
     <a href="https://www.nber.org/conferences/si-2026-industrial-organization">IO</a>). Private page for personal use.
   </div>
@@ -128,6 +132,39 @@
 const A = "aff";
 // meetings per item: subset of ["inno","dig","io"]. kind: paper|aux|panel|lightning
 const DATA = [
+ {day:"Monday, July 20", rooms:"Entrepreneurship — Ballroom A", items:[
+  {t:"8:30", k:"aux", title:"Coffee & Pastries"},
+  {t:"9:00", k:"aux", title:"Introductions (Entrepreneurship)"},
+  {t:"9:05", k:"paper", m:["ent"], title:"Why Don’t Old Firms Do New Things?",
+    au:[["Nicolas Crouzet","Northwestern University"],["Zhiguo He","Stanford University and NBER"],["Victor Lyonnet","University of Michigan"],["Yueran Ma","The University of Chicago and NBER"]],
+    d:[["Scott Stern","MIT and NBER"]]},
+  {t:"9:45", k:"paper", m:["ent"], title:"The Nature of Firm Financing and Growth",
+    au:[["Martin Aragoneses","INSEAD"],["Christopher Hansman","Emory University"],["David Licher","Imperial College London"],["Ramana Nanda","Imperial College London"]],
+    d:[["Constantine Yannelis","University of Cambridge"]]},
+  {t:"10:25", k:"aux", title:"Break"},
+  {t:"10:40", k:"paper", m:["ent"], title:"Venture Capital Cycles and the Startup Labor Market",
+    au:[["Jessica Bai","Georgetown University"]],
+    d:[["John R. Grigsby","Princeton University and NBER"]]},
+  {t:"11:20", k:"paper", m:["ent"], title:"Cash or Stock? Agency Frictions in Venture Capital Distributions",
+    au:[["Minmo Gahng","Cornell University"]],
+    d:[["Paul Gompers","Harvard University and NBER"]]},
+  {t:"12:00", k:"aux", title:"Lunch"},
+  {t:"1:00", k:"paper", m:["ent"], title:"Does Teaching Entrepreneurship Produce Entrepreneurs?",
+    au:[["Elif Nisa Guler","Indiana University Bloomington"]],
+    d:[["TBA",""]]},
+  {t:"1:40", k:"paper", m:["ent"], title:"Prompted to Start: How Generative AI is Transforming Entrepreneurship",
+    au:[["Jan Bena","University of British Columbia"],["Bo Bian","University of British Columbia"],["Mariassunta Giannetti","Stockholm School of Economics"]],
+    d:[["Ajay K. Agrawal","University of Toronto and NBER"]]},
+  {t:"2:20", k:"aux", title:"Break"},
+  {t:"2:40", k:"paper", m:["ent"], title:"Marginal Ideas",
+    au:[["John J. Horton","MIT and NBER"],["Amir Sariri","Purdue University"]],
+    d:[["Scott Duke Kominers","Harvard University"]]},
+  {t:"3:20", k:"paper", m:["ent"], title:"The Impact of Patient Capital",
+    au:[["Yingxiang Li","City University of Hong Kong"],["Tong Liu","MIT"],["Ting Xu","University of Toronto and NBER"]],
+    d:[["Victoria Ivashina","Harvard University and NBER"]]},
+  {t:"4:00", k:"aux", title:"Adjourn (Entrepreneurship)"},
+ ]},
+
  {day:"Tuesday, July 21", rooms:"Innovation — Ballroom A", items:[
   {t:"8:30", k:"aux", title:"Coffee & Pastries"},
   {t:"9:15", k:"aux", title:"Welcome & Introductions"},
@@ -278,7 +315,7 @@ const DATA = [
  ]},
 ];
 
-const MLABEL = {inno:"Innovation", dig:"Digital Econ & AI", io:"IO"};
+const MLABEL = {ent:"Entrepreneurship", inno:"Innovation", dig:"Digital Econ & AI", io:"IO"};
 const esc = s => s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 
 function render(){
