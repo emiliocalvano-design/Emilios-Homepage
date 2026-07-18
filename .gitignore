@@ -9,3 +9,7 @@ capture/shoot_*.mjs
 capture/*.png
 capture/screenshots/
 capture/replica_shots/
+
+# Raw visitor export — contains IP addresses (personal data), never commit
+analytics/visits.json
+analytics/*.csv
