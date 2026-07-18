@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>NBER SI 2026 — Agenda</title>
+<style>
+  :root{
+    --ink:#2e2e2e; --muted:#8a8a8a; --line:#e6e6e6; --bg:#fff;
+    --inno:#7a1f1f; --dig:#1f5f7a; --io:#3f6b3a;
+    --inno-bg:#f6ecec; --dig-bg:#e9f1f4; --io-bg:#eaf1e9;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;font-family:'Raleway','Helvetica Neue',Arial,sans-serif;font-weight:300;
+    color:var(--ink);background:var(--bg);line-height:1.5;font-size:16px;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 80px;}
+
+  header{padding:22px 0 8px;}
+  header h1{font-weight:600;font-size:22px;line-height:1.2;margin:0 0 4px;letter-spacing:.2px;}
+  header .sub{color:var(--muted);font-size:13.5px;}
+  header .sub b{font-weight:500;color:var(--ink);}
+
+  /* filter chips */
+  .filters{position:sticky;top:0;z-index:30;background:var(--bg);
+    padding:10px 0 8px;border-bottom:1px solid var(--line);
+    display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{border:1px solid var(--line);background:#fff;color:var(--muted);
+    font-family:inherit;font-size:12.5px;font-weight:500;letter-spacing:.3px;
+    padding:6px 12px;border-radius:20px;cursor:pointer;white-space:nowrap;}
+  .chip .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle;}
+  .chip[aria-pressed="true"]{color:#fff;border-color:transparent;}
+  .chip[data-f="all"][aria-pressed="true"]{background:var(--ink);}
+  .chip[data-f="inno"][aria-pressed="true"]{background:var(--inno);}
+  .chip[data-f="dig"][aria-pressed="true"]{background:var(--dig);}
+  .chip[data-f="io"][aria-pressed="true"]{background:var(--io);}
+
+  .toolbar{display:flex;justify-content:space-between;align-items:center;
+    padding:10px 2px 2px;font-size:12.5px;color:var(--muted);}
+  .toolbar button{background:none;border:none;color:var(--muted);font-family:inherit;
+    font-size:12.5px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;padding:4px;}
+
+  /* day header */
+  .day{position:sticky;top:47px;z-index:20;background:var(--bg);
+    padding:16px 0 6px;font-weight:600;font-size:15px;letter-spacing:.4px;
+    border-bottom:1px solid var(--line);}
+  .day .rooms{font-weight:300;font-size:11.5px;color:var(--muted);letter-spacing:.2px;}
+
+  .session{border-bottom:1px solid var(--line);}
+  .session.hide{display:none;}
+  .row{display:flex;gap:12px;align-items:flex-start;padding:12px 2px;cursor:pointer;}
+  .time{flex:0 0 62px;font-size:12.5px;color:var(--muted);
+    font-variant-numeric:tabular-nums;padding-top:1px;}
+  .body{flex:1;min-width:0;}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:3px;}
+  .tag{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+    padding:2px 7px;border-radius:4px;}
+  .tag.inno{color:var(--inno);background:var(--inno-bg);}
+  .tag.dig{color:var(--dig);background:var(--dig-bg);}
+  .tag.io{color:var(--io);background:var(--io-bg);}
+  .tag.joint{color:#fff;background:var(--muted);}
+  .title{font-weight:500;font-size:15px;line-height:1.35;}
+  .paper .title{color:var(--ink);}
+  .pres{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .caret{flex:0 0 14px;color:#cfcfcf;font-size:12px;padding-top:3px;transition:transform .15s;}
+  .session.open .caret{transform:rotate(90deg);}
+
+  .detail{display:none;padding:0 2px 14px 74px;}
+  .session.open .detail{display:block;}
+  .detail .lbl{font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;
+    color:var(--muted);margin:2px 0 3px;}
+  .detail .auth{font-size:13px;line-height:1.5;}
+  .detail .auth .aff{color:var(--muted);}
+  .detail .disc{font-size:13px;line-height:1.5;margin-top:8px;}
+  .detail .disc .who{font-weight:500;}
+  .detail .ltalk{padding:7px 0;border-top:1px solid var(--line);}
+  .detail .ltalk:first-of-type{border-top:none;}
+  .detail .ltalk .tt{font-size:13px;font-weight:500;}
+  .detail .ltalk .aa{font-size:12px;color:var(--muted);}
+
+  /* non-paper rows: breaks, meals, admin */
+  .aux .row{cursor:default;padding:7px 2px;}
+  .aux .title{font-weight:300;font-size:12.5px;color:var(--muted);letter-spacing:.3px;}
+  .aux .caret,.aux .tags{display:none;}
+  .aux .time{color:#b7b7b7;}
+
+  .note{font-size:12px;color:var(--muted);padding:14px 2px 0;line-height:1.5;}
+  .note a{color:var(--muted);}
+  footer{margin-top:26px;font-size:11.5px;color:#b7b7b7;text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>NBER Summer Institute 2026</h1>
+    <div class="sub">Innovation · Digital Economics &amp; AI · Industrial Organization<br>
+    <b>July 21–24, 2026</b> · Royal Sonesta Hotel, Cambridge MA</div>
+  </header>
+
+  <div class="filters" id="filters">
+    <button class="chip" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" data-f="inno" aria-pressed="false"><span class="dot" style="background:var(--inno)"></span>Innovation</button>
+    <button class="chip" data-f="dig" aria-pressed="false"><span class="dot" style="background:var(--dig)"></span>Digital Econ &amp; AI</button>
+    <button class="chip" data-f="io" aria-pressed="false"><span class="dot" style="background:var(--io)"></span>IO</button>
+  </div>
+
+  <div class="toolbar">
+    <span id="count"></span>
+    <button id="expandAll">Expand all</button>
+  </div>
+
+  <div id="agenda"></div>
+
+  <div class="note">
+    Rooms: Innovation &amp; Digital Economics/AI in <b>Ballroom A</b>; Industrial Organization in <b>Charles AB</b>.
+    Joint sessions are held in Ballroom A. Tap any paper to see authors and discussant.<br>
+    Source: NBER printable agendas (<a href="https://www.nber.org/conferences/si-2026-innovation">Innovation</a>,
+    <a href="https://www.nber.org/conferences/si-2026-digital-economics-and-artificial-intelligence">Digital Econ &amp; AI</a>,
+    <a href="https://www.nber.org/conferences/si-2026-industrial-organization">IO</a>). Private page for personal use.
+  </div>
+  <footer>Compiled 18 Jul 2026 · schedules subject to change</footer>
+</div>
+
+<script>
+const A = "aff";
+// meetings per item: subset of ["inno","dig","io"]. kind: paper|aux|panel|lightning
+const DATA = [
+ {day:"Tuesday, July 21", rooms:"Innovation — Ballroom A", items:[
+  {t:"8:30", k:"aux", title:"Coffee & Pastries"},
+  {t:"9:15", k:"aux", title:"Welcome & Introductions"},
+  {t:"9:30", k:"paper", m:["inno"], title:"Patent Vouchers as Innovation Incentives: Theory and Evidence from Europe",
+    au:[["Pierre Dubois","Toulouse School of Economics"],["Paul-Henri Moisson","Paris School of Economics"],["Jean Tirole","Toulouse School of Economics"]],
+    d:[["Christopher M. Snyder","Dartmouth College and NBER"]]},
+  {t:"10:20", k:"paper", m:["inno"], title:"Tasks to TFP: The Micro Origins of Aggregate Productivity",
+    au:[["Joseba Martinez","London Business School"],["Johan Moen-Vorum","BI Norwegian Business School"]],
+    d:[["David J. Deming","Harvard University and NBER"]]},
+  {t:"11:10", k:"aux", title:"Break"},
+  {t:"11:30", k:"paper", m:["inno"], title:"The Decline in the Transmission of Scientific Ideas",
+    au:[["Enrico Berkes","University of Maryland, Baltimore County"],["Ruben Gaetani","University of Toronto"]],
+    d:[["Kyle R. Myers","Harvard University and NBER"]]},
+  {t:"12:20", k:"aux", title:"Lunch"},
+  {t:"1:30", k:"paper", m:["inno"], title:"Dynamic Oligopoly and Innovation",
+    au:[["Hugo Hopenhayn","University of California, Los Angeles and NBER"],["Koki Okumura","University of California, Los Angeles"]],
+    d:[["Philippe Aghion","Collège de France"]]},
+  {t:"2:20", k:"paper", m:["inno"], title:"The Economic Value of Science",
+    au:[["Xugan Chen","Yale University"],["Ernest Liu","Princeton University and NBER"],["Song Ma","Yale University and NBER"]],
+    d:[["Lee G. Branstetter","Carnegie Mellon University and NBER"]]},
+  {t:"3:10", k:"aux", title:"Break"},
+  {t:"3:30", k:"panel", m:["inno"], title:"Panel — Regulation, Innovation, and Economic Growth",
+    au:[["Moderator: Heidi Williams","Dartmouth College and NBER"],["Edward Glaeser","Harvard University and NBER"],["Zach Liscow","Yale University"],["Lisa Ouellette","Stanford University"],["Mike Schmidt","Princeton University"]]},
+  {t:"5:00", k:"aux", title:"Adjourn · Reception in Grand Ballroom Foyer"},
+ ]},
+
+ {day:"Wednesday, July 22", rooms:"Innovation (a.m.) — Ballroom A · afternoon joint with Digital Econ & AI", items:[
+  {t:"8:30", k:"aux", title:"Coffee & Pastries"},
+  {t:"9:30", k:"paper", m:["inno"], title:"Innovation through Recombination",
+    au:[["Songyuan Teng","Yale University"]],
+    d:[["Rebekah Dix","Stanford University"]]},
+  {t:"10:20", k:"aux", title:"Break"},
+  {t:"10:40", k:"paper", m:["inno"], title:"How Artificial Intelligence Shapes Science: Evidence from AlphaFold",
+    au:[["Ryan R. Hill","Northwestern University and NBER"],["Carolyn Stein","University of California, Berkeley and NBER"]],
+    d:[["Juan Mateos Garcia","Google"]]},
+  {t:"11:30", k:"paper", m:["inno"], title:"How AI Impacts the Quest for Knowledge: Evidence from AlphaFold2",
+    au:[["Myra Mohnen","University of Ottawa"],["Joshua S. Gans","University of Toronto and NBER"]],
+    d:[["Timothy F. Bresnahan","Stanford University"],["Juan Mateos Garcia","Google"]]},
+  {t:"12:20", k:"aux", title:"Lunch"},
+  {t:"1:30", k:"paper", m:["inno","dig"], joint:"Innovation × Digital Econ & AI", title:"Growth at the Resource Frontier",
+    au:[["Martin Beraja","University of California, Berkeley and NBER"],["Noam Yuchtman","London School of Economics"]],
+    d:[["Melissa Dell","Harvard University and NBER"]]},
+  {t:"2:20", k:"paper", m:["inno","dig"], joint:"Innovation × Digital Econ & AI", title:"Platform Governance and Automated Enforcement: Evidence from YouTube Content ID",
+    au:[["Sverrir Arnórsson","University of Zurich"],["Stefan Bechtold","ETH Zurich"],["Christian Peukert","University of Lausanne"],["Catherine Tucker","MIT and NBER"]],
+    d:[["Imke Reimers","Cornell University"]]},
+  {t:"3:30", k:"paper", m:["inno","dig"], joint:"Innovation × Digital Econ & AI", title:"Elite Talent and Firm Productivity in the Age of AI",
+    au:[["Sagar V. Baviskar","Carnegie Mellon University"],["Lee G. Branstetter","Carnegie Mellon University and NBER"],["Prasanna Tambe","University of Pennsylvania"],["Liujie Wu","Carnegie Mellon University"],["Cameron Drayton","Carnegie Mellon University"],["Eduard Hovy","Carnegie Mellon University"]],
+    d:[["Ajay K. Agrawal","University of Toronto and NBER"]]},
+  {t:"4:20", k:"aux", title:"Adjourn"},
+ ]},
+
+ {day:"Thursday, July 23", rooms:"Digital Econ & AI — Ballroom A · Industrial Organization — Charles AB", items:[
+  // Digital Econ & AI track
+  {t:"8:30", k:"aux", title:"Coffee & Pastries"},
+  {t:"9:00", k:"aux", title:"Introductions (Digital Econ & AI)"},
+  {t:"9:10", k:"paper", m:["dig"], title:"End of the Road? Autonomous Vehicles and Displacement Risk",
+    au:[["Danial Salman","University of Washington"]],
+    d:[["Betsey Stevenson","University of Michigan and NBER"]]},
+  {t:"9:50", k:"paper", m:["dig"], title:"Labor, Despite AI",
+    au:[["Matteo B. Chequer","University of Minnesota"],["Kyle F. Herkenhoff","University of Minnesota and NBER"],["Dimitris Papanikolaou","Northwestern University and NBER"],["Jonathan L. Rothbaum","U.S. Census Bureau"],["Lawrence D.W. Schmidt","UC San Diego and NBER"],["Bryan Seegmiller","Northwestern University"]],
+    d:[["Danielle Li","MIT and NBER"]]},
+  {t:"10:30", k:"aux", title:"Break"},
+  {t:"11:00", k:"paper", m:["dig"], title:"Social Media Toxicity and Mental Health",
+    au:[["George Beknazar-Yuzbashev","The University of Chicago"],["Francesco Capozza","University of Barcelona"],["Kylan Rutherford","New York University"],["Mateusz Stalinski","University of Warwick"]],
+    d:[["Hunt Allcott","Stanford University and NBER"]]},
+  {t:"11:40", k:"paper", m:["dig"], title:"Robust Content Moderation: Theory and Applications",
+    au:[["Scott Duke Kominers","Harvard University"],["Jesse M. Shapiro","Harvard University and NBER"]],
+    d:[["Joshua S. Gans","University of Toronto and NBER"]]},
+  {t:"12:20", k:"aux", title:"Lunch"},
+  {t:"1:30", k:"paper", m:["dig"], title:"Re-organizing Work inside the Firm: Task Change after Technology Adoption",
+    au:[["Eleonora Brandimarti","University of Glasgow"],["Virginia Minni","The University of Chicago and NBER"],["Raffaella Sadun","Harvard University and NBER"],["Jorge A. Tamayo","Harvard University and NBER"]],
+    d:[["Daniel Rock","University of Pennsylvania"]]},
+  {t:"2:10", k:"aux", title:"Break"},
+  {t:"2:40", k:"paper", m:["dig"], title:"AI Adoption and Productivity in Healthcare",
+    au:[["Erkmen G. Aslim","University of Vermont"],["Manuel Hoffmann","University of California, Irvine"],["Haonan Yin","University of California, Irvine"]],
+    d:[["Amalia R. Miller","University of Virginia and NBER"]]},
+  {t:"3:20", k:"aux", title:"Break"},
+  {t:"3:40", k:"lightning", m:["dig"], title:"Lightning Round", lt:[
+    ["Mapping AI into Production: A Field Experiment on Firm Performance","Hyunjin Kim, Dahyeon Kim (INSEAD); Rembrand M. Koning (Harvard)"],
+    ["Learning to Prompt: Human Adaptation in Production with Generative AI","Sijie Lin (Toronto)"],
+    ["Calibrated Coarsening: Designing Information for AI-Assisted Decisions","Bnaya Dreyfuss (Harvard); Ruru Hoong (MIT)"],
+    ["Making Talk Cheap: Generative AI and Labor Market Signaling","Anais Galdin (Dartmouth); Jesse Silbert (Princeton)"],
+    ["Selective Participation in the AI Data Commons","Kai Zhu (Bocconi)"],
+    ["Openness to AI in Higher Education","Fernando Saltiel (McGill)"],
+    ["How Exposed is Higher Education to Artificial Intelligence?","Jacob D. Light (Hoover)"],
+    ["Experimental Evidence on the Learning Impact of Generative AI","German J. Reyes, Zara Contractor (Middlebury)"],
+    ["Courts of Tomorrow: Evidence from a Nationwide Introduction of Generative AI","Sultan Mehmood (NES); Christoph Goessmann, Elliott Ash (ETH Zurich)"],
+    ["Directional AI Advice: Experimental Evidence from Healthcare","Yuyu Chen (Peking); Hongbin Li, Lingsheng Meng (Stanford); Xinyao Qiu, Qingxu Yang (HKU)"],
+    ["The Labor Market Effects of Generative Artificial Intelligence","Jonathan S. Hartley (Stanford); Brendan Moore (Michigan); Filip Jolevski (World Bank); Vitor C. Melo (Clemson)"],
+    ["Generative AI and Market Structure in Open Source Software: Evidence from GitHub Copilot","Michail Batikas (Nova SBE)"]]},
+  {t:"5:00", k:"aux", title:"Adjourn (Digital Econ & AI)"},
+  {t:"6:00", k:"aux", title:"Reception & Dinner — Royal Sonesta (Riverfront Room)"},
+  // IO track
+  {t:"9:00", k:"paper", m:["io"], title:"Competition and Welfare in Airport Slot Allocation",
+    au:[["Sebastian D. Bauer","Stanford University"]],
+    d:[["Kevin R. Williams","Yale University and NBER"]]},
+  {t:"9:25", k:"paper", m:["io"], title:"A Market for Airport Slots",
+    au:[["Marleen R. Marra","KU Leuven"]],
+    d:[["Kevin R. Williams","Yale University and NBER"]]},
+  {t:"11:10", k:"paper", m:["io"], title:"Price Elasticities in Logit Demand Models",
+    au:[["Ariel Goldszmidt","Lyft"],["Lancelot Henry de Frahan","The University of Chicago"],["John A. List","The University of Chicago and NBER"],["Magne Mogstad","The University of Chicago and NBER"],["Ian Muir","Walmart"],["Alexander Torgovitsky","The University of Chicago"]],
+    d:[["Philip Haile","Yale University and NBER"]]},
+  {t:"1:30", k:"paper", m:["io"], title:"Quality, Selection, and Congestion: Equilibrium Hospital Outcomes During Covid-19",
+    au:[["Gautam Gowrisankaran","Columbia University and NBER"],["Kelli R. Marquardt","Federal Reserve Bank of Chicago"],["Robert Town","University of Texas at Austin and NBER"]],
+    d:[["Michael Sinkinson","Northwestern University and NBER"]]},
+  {t:"2:50", k:"paper", m:["io"], title:"Targeting and Price Pass-Through in Housing Voucher Design",
+    au:[["Fernando Ochoa","New York University"]],
+    d:[["Milena Almagro","The University of Chicago and NBER"]]},
+  {t:"4:10", k:"paper", m:["io"], title:"What Do Certifications Certify?",
+    au:[["Mark L. Egan","Harvard University and NBER"],["Gregor Matvos","Northwestern University and NBER"],["Amit Seru","Stanford University and NBER"],["Hanbin Yang","London Business School"]],
+    d:[["Eric Budish","The University of Chicago and NBER"]]},
+  {t:"5:00", k:"aux", m:["io"], title:"Adjourn (IO)"},
+ ]},
+
+ {day:"Friday, July 24", rooms:"Digital Econ & AI — Ballroom A · IO — Charles AB (a.m.) · afternoon joint in Ballroom A", items:[
+  // Digital Econ & AI track
+  {t:"8:30", k:"aux", title:"Coffee & Pastries"},
+  {t:"9:00", k:"paper", m:["dig"], title:"Human Decisions and Machine Predictions in Multistage Systems",
+    au:[["E. Jason Baron","Duke University and NBER"],["Will S. Dobbie","Harvard University and NBER"],["Richard Lombardo","Harvard University"],["Ashesh Rambachan","MIT"],["Joseph P. Ryan","University of Michigan"]],
+    d:[["Alex Moehring","University of Pennsylvania"]]},
+  {t:"9:40", k:"aux", title:"Break"},
+  {t:"10:00", k:"paper", m:["dig"], title:"Data Paper — How Organizations Use AI: Evidence from ChatGPT",
+    au:[["Aaron Chatterji","Duke University and NBER"],["David J. Deming","Harvard University and NBER"],["David Holtz","Columbia University"],["Neel Rakholia","OpenAI"],["Prasanna Tambe","University of Pennsylvania"],["Gawesha Weeratunga","OpenAI"]]},
+  {t:"10:20", k:"paper", m:["dig"], title:"Data Paper — Firm Data on AI",
+    au:[["Ivan Yotzov","Bank of England"],["Jose Maria Barrero","ITAM"],["Nicholas Bloom","Stanford University and NBER"],["Philip Bunn","Bank of England"],["Steven J. Davis","Stanford University and NBER"],["Kevin M. Foster","Federal Reserve Bank of Atlanta"],["Aaron Jalca","Federal Reserve Bank of Atlanta"],["Brent H. Meyer","Federal Reserve Bank of Atlanta"],["Paul Mizen","King's College London"],["Michael A. Navarrete","Federal Reserve Bank of Atlanta"]]},
+  {t:"10:40", k:"paper", m:["dig"], title:"Data Paper — How People Use ChatGPT",
+    au:[["Aaron Chatterji","Duke University and NBER"],["Thomas Cunningham","OpenAI"],["David J. Deming","Harvard University and NBER"],["Zoe Hitzig","Harvard University"],["Christopher Ong","Harvard University"],["Carl Yan Shan","OpenAI"],["Kevin Wadman","OpenAI"]],
+    d:[["Shane Greenstein","Harvard University and NBER"]]},
+  {t:"11:30", k:"aux", title:"Break"},
+  {t:"11:40", k:"paper", m:["dig","io"], joint:"Digital Econ & AI × IO", title:"The Personalization Paradox: Welfare Effects of Personalized Recommendations in Two-Sided Digital Markets",
+    au:[["Aaron P. Kaye","Boston University"]],
+    d:[["Steven Tadelis","University of California, Berkeley and NBER"]]},
+  {t:"12:30", k:"aux", title:"Lunch"},
+  {t:"2:00", k:"paper", m:["dig","io"], joint:"Digital Econ & AI × IO", title:"Social Media Advertising Loads as Prices",
+    au:[["George Beknazar-Yuzbashev","The University of Chicago"],["Rafael Jiménez-Durán","Bocconi University"],["Andrey Simonov","Columbia University"],["Mateusz Stalinski","University of Warwick"]],
+    d:[["Jesse M. Shapiro","Harvard University and NBER"]]},
+  {t:"3:10", k:"paper", m:["dig","io"], joint:"Digital Econ & AI × IO", title:"Private Labels and Product Imitation: Evidence from Amazon",
+    au:[["Malika Korganbekova","The University of Chicago"],["Alibek Korganbekov","Boston University"]],
+    d:[["Leon Musolff","University of Pennsylvania and NBER"]]},
+  {t:"4:00", k:"aux", title:"Adjourn"},
+  // IO track (morning, Charles AB)
+  {t:"9:00", k:"paper", m:["io"], title:"A Double Dose of Reform: Insurance and Centralized Negotiation in Drug Markets",
+    au:[["Panle Jia Barwick","University of Wisconsin - Madison and NBER"],["Ashley T. Swanson","University of Wisconsin - Madison and NBER"],["Tianli Xia","University of Rochester"]],
+    d:[["Ashvin Gandhi","University of California, Los Angeles and NBER"]]},
+  {t:"10:20", k:"paper", m:["io"], title:"Investment, Productivity, and Selection in the U.S. Shale Boom",
+    au:[["Thomas R. Covert","Airbnb"],["Konan Hara","Michigan State University"],["Ryan Kellogg","The University of Chicago and NBER"],["Richard L. Sweeney","Boston College"]],
+    d:[["C. Lanier Benkard","Stanford University and NBER"]]},
+ ]},
+];
+
+const MLABEL = {inno:"Innovation", dig:"Digital Econ & AI", io:"IO"};
+const esc = s => s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+
+function render(){
+  const root = document.getElementById("agenda");
+  root.innerHTML = "";
+  DATA.forEach(day=>{
+    const dh = document.createElement("div");
+    dh.className = "day";
+    dh.innerHTML = esc(day.day) + '<div class="rooms">'+esc(day.rooms)+'</div>';
+    root.appendChild(dh);
+    // sort items chronologically by time within the day (parse am/pm)
+    const withMin = day.items.map((it,i)=>({it,i,min:toMin(it.t)}));
+    withMin.sort((a,b)=> a.min-b.min || a.i-b.i);
+    withMin.forEach(({it})=>{
+      root.appendChild(buildSession(it));
+    });
+  });
+  applyFilter();
+}
+
+function toMin(t){
+  let [h,rest]=t.split(":"); h=+h; let m=+rest.slice(0,2);
+  // agenda uses am/pm implicitly: 8-11 = am, 12 = pm(noon), 1-6 = pm
+  if(h===12) return 12*60+m;
+  if(h>=1 && h<=6) return (h+12)*60+m;
+  return h*60+m;
+}
+
+function buildSession(it){
+  const s = document.createElement("div");
+  s.className = "session " + (it.k==="aux" ? "aux" : "paper");
+  s.dataset.m = (it.m||[]).join(",");
+  let tags = "";
+  if(it.m){
+    if(it.joint) tags += '<span class="tag joint">Joint</span>';
+    it.m.forEach(mm=> tags += '<span class="tag '+mm+'">'+esc(MLABEL[mm])+'</span>');
+  }
+  let pres = "";
+  if(it.k==="paper" && it.au && it.au.length){
+    const names = it.au.map(a=>a[0]);
+    pres = '<div class="pres">'+esc(names.slice(0,2).join(", ")) + (names.length>2?" +"+(names.length-2):"") + '</div>';
+  }
+  s.innerHTML =
+    '<div class="row">'+
+      '<div class="time">'+esc(it.t)+'</div>'+
+      '<div class="body">'+
+        (tags?'<div class="tags">'+tags+'</div>':'')+
+        '<div class="title">'+esc(it.title)+'</div>'+ pres +
+      '</div>'+
+      (it.k==="aux" ? '' : '<div class="caret">▶</div>')+
+    '</div>' + buildDetail(it);
+  if(it.k!=="aux"){
+    s.querySelector(".row").addEventListener("click",()=>s.classList.toggle("open"));
+  }
+  return s;
+}
+
+function buildDetail(it){
+  if(it.k==="aux") return "";
+  let h = '<div class="detail">';
+  if(it.k==="lightning"){
+    it.lt.forEach(l=> h+='<div class="ltalk"><div class="tt">'+esc(l[0])+'</div><div class="aa">'+esc(l[1])+'</div></div>');
+  } else {
+    if(it.au){
+      h+='<div class="lbl">'+(it.k==="panel"?"Panel":"Authors")+'</div><div class="auth">';
+      h+= it.au.map(a=> esc(a[0])+' <span class="aff">'+esc(a[1])+'</span>').join('<br>');
+      h+='</div>';
+    }
+    if(it.d){
+      h+='<div class="disc"><span class="lbl" style="display:block">Discussant</span>';
+      h+= it.d.map(a=>'<span class="who">'+esc(a[0])+'</span> <span class="aff">'+esc(a[1])+'</span>').join('<br>');
+      h+='</div>';
+    }
+    if(it.joint) h+='<div class="disc" style="color:var(--muted)">'+esc(it.joint)+' · Ballroom A</div>';
+  }
+  return h+'</div>';
+}
+
+let active = "all";
+function applyFilter(){
+  const sessions = document.querySelectorAll(".session");
+  let n=0;
+  sessions.forEach(s=>{
+    const ms = (s.dataset.m||"").split(",").filter(Boolean);
+    const show = active==="all" ? ms.length>0 || s.classList.contains("aux")
+                                : ms.includes(active);
+    // aux rows: show under All, or when a meeting is selected only if that day has that meeting shown — keep simple: show aux only under All
+    let vis = show;
+    if(active!=="all" && s.classList.contains("aux")) vis = ms.includes(active);
+    s.classList.toggle("hide", !vis);
+    if(vis && s.classList.contains("paper")) n++;
+  });
+  // hide day headers with no visible sessions
+  document.querySelectorAll(".day").forEach(dh=>{
+    let el=dh.nextElementSibling, any=false;
+    while(el && !el.classList.contains("day")){
+      if(el.classList.contains("session") && !el.classList.contains("hide")){any=true;break;}
+      el=el.nextElementSibling;
+    }
+    dh.style.display = any ? "" : "none";
+  });
+  document.getElementById("count").textContent = n + (active==="all"?" papers · all meetings":" papers · "+MLABEL[active]);
+}
+
+document.getElementById("filters").addEventListener("click",e=>{
+  const b = e.target.closest(".chip"); if(!b) return;
+  active = b.dataset.f;
+  document.querySelectorAll("#filters .chip").forEach(c=>c.setAttribute("aria-pressed", c===b));
+  applyFilter();
+});
+
+let allOpen=false;
+document.getElementById("expandAll").addEventListener("click",()=>{
+  allOpen=!allOpen;
+  document.querySelectorAll(".session.paper").forEach(s=>s.classList.toggle("open",allOpen));
+  document.getElementById("expandAll").textContent = allOpen?"Collapse all":"Expand all";
+});
+
+render();
+</script>
+</body>
+</html>
