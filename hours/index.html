@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cleaning Hours</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Hours">
+<meta name="theme-color" content="#146e64">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<script src="config.js"></script>
+<style>
+:root {
+  --bg: #f4f1ea; --card: #ffffff; --ink: #1d2422; --muted: #6b7471; --line: #e4dfd4;
+  --accent: #146e64; --accent-ink: #ffffff; --accent-soft: #dcefeb; --warn: #b5651d; --night: #3d4a8a; --night-soft: #e3e6f5;
+  --danger: #b3261e;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121615; --card: #1c2220; --ink: #ecefed; --muted: #97a19d; --line: #2c3431;
+    --accent: #3fb3a3; --accent-ink: #06201c; --accent-soft: #173a35; --night: #9aa6e6; --night-soft: #242a45;
+    --danger: #ff8a80;
+  }
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); }
+body {
+  font: 17px/1.35 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  padding: env(safe-area-inset-top) 16px calc(env(safe-area-inset-bottom) + 24px);
+  max-width: 560px; margin: 0 auto; -webkit-user-select: none; user-select: none;
+}
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+.hidden { display: none !important; }
+
+header { display: flex; align-items: center; justify-content: space-between; padding: 14px 0 8px; }
+header h1 { font-size: 22px; margin: 0; letter-spacing: -.01em; }
+.icon-btn { width: 40px; height: 40px; border-radius: 20px; display: grid; place-items: center; color: var(--muted); }
+.icon-btn:active { background: var(--line); }
+.sync { display: inline-block; width: 8px; height: 8px; border-radius: 4px; margin-left: 8px; vertical-align: middle; background: var(--muted); }
+.sync.ok { background: #2e9b5f; } .sync.pending { background: #e0a100; } .sync.err { background: var(--danger); }
+
+.total { background: var(--accent); color: var(--accent-ink); border-radius: 18px; padding: 16px 18px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; width: 100%; text-align: left; }
+.total .label { font-size: 14px; opacity: .85; text-transform: capitalize; }
+.total .big { font-size: 38px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+.total .side { text-align: right; font-size: 15px; opacity: .95; }
+.total .side b { font-size: 20px; display: block; }
+.total .more { font-size: 13px; opacity: .8; margin-top: 4px; }
+
+.section-title { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 22px 4px 8px; }
+.days { background: var(--card); border-radius: 16px; overflow: hidden; }
+.day { display: flex; align-items: center; width: 100%; padding: 13px 16px; min-height: 58px; border-top: 1px solid var(--line); text-align: left; gap: 12px; }
+.day:first-child { border-top: 0; }
+.day:active { background: var(--accent-soft); }
+.day .dname { width: 108px; flex: none; }
+.day .dname b { display: block; font-weight: 600; text-transform: capitalize; }
+.day .dname span { font-size: 14px; color: var(--muted); }
+.day.today .dname b { color: var(--accent); }
+.day .dinfo { flex: 1; font-size: 15px; color: var(--muted); }
+.day .dinfo .pill { display: inline-block; background: var(--accent-soft); color: var(--ink); border-radius: 8px; padding: 2px 8px; margin: 2px 4px 2px 0; font-variant-numeric: tabular-nums; }
+.day .dinfo .pill.night { background: var(--night-soft); }
+.day .dhours { font-weight: 700; font-variant-numeric: tabular-nums; }
+.day .plus { width: 30px; height: 30px; border-radius: 15px; border: 2px solid var(--accent); color: var(--accent); display: grid; place-items: center; font-weight: 700; flex: none; }
+.link-row { display: block; width: 100%; text-align: center; padding: 14px; color: var(--accent); font-weight: 600; }
+
+/* Bottom sheet */
+.scrim { position: fixed; inset: 0; background: rgba(0,0,0,.35); opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 10; }
+.scrim.show { opacity: 1; pointer-events: auto; }
+.sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 11; background: var(--bg); border-radius: 20px 20px 0 0; max-height: 92vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 8px 16px calc(env(safe-area-inset-bottom) + 20px); transform: translateY(105%); transition: transform .25s ease; max-width: 560px; margin: 0 auto; }
+.sheet.show { transform: none; }
+.grab { width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: 4px auto 10px; }
+.sheet h2 { margin: 0 0 2px; font-size: 21px; text-transform: capitalize; }
+.sheet .sub { color: var(--muted); font-size: 15px; margin-bottom: 8px; }
+.sheet-head { display: flex; justify-content: space-between; align-items: flex-start; }
+.close { color: var(--accent); font-weight: 600; padding: 4px 0 4px 12px; }
+
+.logged { background: var(--card); border-radius: 14px; margin: 10px 0 4px; }
+.logged .row { display: flex; align-items: center; padding: 12px 14px; border-top: 1px solid var(--line); gap: 10px; font-variant-numeric: tabular-nums; }
+.logged .row:first-child { border-top: 0; }
+.logged .row .t { flex: 1; }
+.del { color: var(--danger); font-size: 15px; font-weight: 600; padding: 6px 4px; }
+.del.confirm { background: var(--danger); color: #fff; border-radius: 8px; padding: 6px 10px; }
+
+.group-label { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 16px 2px 8px; }
+.chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.chip { background: var(--card); border-radius: 12px; padding: 13px 4px; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; border: 1.5px solid var(--line); }
+.chip small { display: block; font-weight: 500; font-size: 12px; color: var(--muted); margin-top: 1px; }
+.chip:active, .chip.sel { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.chip:active small, .chip.sel small { color: inherit; opacity: .85; }
+.quick { display: grid; gap: 8px; }
+.quick .chip { display: flex; justify-content: space-between; align-items: center; padding: 15px 16px; font-size: 18px; }
+.quick .chip small { font-size: 14px; margin: 0; }
+.step-back { color: var(--accent); font-weight: 600; padding: 8px 0; }
+.night-btn { display: block; width: 100%; margin-top: 22px; padding: 12px; border-radius: 12px; color: var(--night); font-size: 15px; font-weight: 600; border: 1.5px dashed var(--line); }
+.night-btn:active { background: var(--night-soft); }
+
+/* Month view & settings */
+.panel { background: var(--card); border-radius: 16px; padding: 4px 16px; margin-top: 8px; }
+.mrow { display: flex; justify-content: space-between; padding: 11px 0; border-top: 1px solid var(--line); font-variant-numeric: tabular-nums; gap: 10px; }
+.mrow:first-child { border-top: 0; }
+.mrow .l { text-transform: capitalize; }
+.mrow .r { color: var(--muted); text-align: right; }
+.mnav { display: flex; align-items: center; justify-content: space-between; margin: 6px 0; }
+.mnav b { text-transform: capitalize; font-size: 18px; }
+.btn { display: block; width: 100%; background: var(--accent); color: var(--accent-ink); border-radius: 12px; padding: 14px; font-weight: 600; margin-top: 12px; }
+.btn.secondary { background: var(--card); color: var(--accent); border: 1.5px solid var(--line); }
+.field { display: block; padding: 10px 0; border-top: 1px solid var(--line); }
+.field:first-child { border-top: 0; }
+.field span { display: block; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+.field input, .field select { width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px; -webkit-user-select: text; user-select: text; }
+.note { font-size: 13px; color: var(--muted); margin: 10px 4px; }
+.empty { color: var(--muted); padding: 14px 0; text-align: center; }
+
+.toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom) + 28px); transform: translate(-50%, 20px); background: var(--ink); color: var(--bg);
+  padding: 12px 20px; border-radius: 24px; font-weight: 600; opacity: 0; transition: all .2s; z-index: 20; white-space: nowrap; pointer-events: none; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<main id="home">
+  <header>
+    <h1><span data-t="title"></span><span id="syncDot" class="sync"></span></h1>
+    <button class="icon-btn" id="openSettings" aria-label="Settings">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </header>
+
+  <button class="total" id="openMonth">
+    <div>
+      <div class="label" id="totLabel"></div>
+      <div class="big" id="totHours"></div>
+      <div class="more" data-t="details"></div>
+    </div>
+    <div class="side" id="totSide"></div>
+  </button>
+
+  <div class="section-title" data-t="tapDay"></div>
+  <div class="days" id="days"></div>
+  <button class="link-row" id="moreDays" data-t="moreDays"></button>
+  <label class="link-row" style="position:relative">
+    <span data-t="otherDate"></span>
+    <input type="date" id="otherDate" style="position:absolute;inset:0;opacity:0;width:100%">
+  </label>
+</main>
+
+<!-- MONTH -->
+<main id="month" class="hidden">
+  <header>
+    <button class="step-back" id="closeMonth">‹ <span data-t="back"></span></button>
+    <span></span>
+  </header>
+  <div class="mnav">
+    <button class="icon-btn" id="mPrev" aria-label="Previous month">‹</button>
+    <b id="mTitle"></b>
+    <button class="icon-btn" id="mNext" aria-label="Next month">›</button>
+  </div>
+  <div class="panel" id="mSummary"></div>
+  <div class="section-title" data-t="entries"></div>
+  <div class="panel" id="mList"></div>
+  <button class="btn" id="mShare" data-t="share"></button>
+  <button class="btn secondary" id="mCsv" data-t="csv"></button>
+</main>
+
+<!-- SETTINGS -->
+<main id="settings" class="hidden">
+  <header>
+    <button class="step-back" id="closeSettings">‹ <span data-t="back"></span></button>
+    <span></span>
+  </header>
+  <div class="section-title" data-t="settings"></div>
+  <div class="panel">
+    <label class="field"><span data-t="lang"></span>
+      <select id="sLang"><option value="it">Italiano</option><option value="en">English</option></select></label>
+    <label class="field"><span data-t="rate"></span><input id="sRate" type="number" inputmode="decimal" step="0.5" min="0" placeholder="0"></label>
+    <label class="field"><span data-t="nightRate"></span><input id="sNight" type="number" inputmode="decimal" step="1" min="0" placeholder="0"></label>
+  </div>
+  <div class="section-title" data-t="sync"></div>
+  <div class="panel">
+    <label class="field"><span>Google Apps Script URL</span><input id="sUrl" type="url" autocapitalize="off" autocorrect="off" placeholder="https://script.google.com/macros/s/…/exec"></label>
+    <label class="field"><span>Token</span><input id="sToken" type="text" autocapitalize="off" autocorrect="off"></label>
+  </div>
+  <p class="note" id="syncNote"></p>
+  <button class="btn" id="sSave" data-t="save"></button>
+  <button class="btn secondary" id="sSyncNow" data-t="syncNow"></button>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<section class="sheet" id="sheet" aria-modal="true" role="dialog">
+  <div class="grab"></div>
+  <div class="sheet-head">
+    <div><h2 id="shTitle"></h2><div class="sub" id="shSub"></div></div>
+    <button class="close" id="shClose" data-t="done"></button>
+  </div>
+  <div id="shLogged"></div>
+  <div id="shBody"></div>
+</section>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+'use strict';
+
+// ---------- i18n ----------
+const T = {
+  en: { title: 'Cleaning hours', details: 'Tap for month details', tapDay: 'Tap a day to log hours', moreDays: 'Show earlier days', otherDate: 'Pick another date…',
+        back: 'Back', entries: 'Entries', share: 'Share month summary', csv: 'Download CSV', settings: 'Settings', lang: 'Language',
+        rate: 'Hourly rate (€) — optional', nightRate: 'Overnight stay (€ per night) — optional', sync: 'Sync with Google Sheet', save: 'Save', syncNow: 'Sync now',
+        done: 'Done', quick: 'Same as before', start: 'Arrived at', end: 'Left at', morning: 'Morning', afternoon: 'Afternoon', evening: 'Evening',
+        night: 'Overnight stay', nightAdd: '+ She stayed overnight', saved: 'Saved', deleted: 'Deleted', del: 'Delete', sure: 'Sure?', hours: 'hours', h: 'h',
+        nights: 'nights', night1: 'night', days: 'days', total: 'Total', amount: 'Amount', noEntries: 'Nothing logged this month.',
+        today: 'Today', yesterday: 'Yesterday', changeStart: '‹ Change arrival time', thisMonth: 'This month', mid: 'midnight',
+        localOnly: 'Local only: data is stored on this phone. Add the Apps Script URL to share it and keep a backup.',
+        synced: 'Synced with Google Sheet.', pending: 'Some entries are waiting to sync (offline?). They will be sent automatically.', syncErr: 'Sync error: ',
+        summaryHead: 'Cleaning hours' },
+  it: { title: 'Ore pulizie', details: 'Tocca per il dettaglio del mese', tapDay: 'Tocca un giorno per segnare le ore', moreDays: 'Mostra giorni precedenti', otherDate: 'Scegli un\'altra data…',
+        back: 'Indietro', entries: 'Registrazioni', share: 'Condividi riepilogo', csv: 'Scarica CSV', settings: 'Impostazioni', lang: 'Lingua',
+        rate: 'Tariffa oraria (€), facoltativa', nightRate: 'Notte (€ a notte), facoltativa', sync: 'Sincronizzazione Google Sheet', save: 'Salva', syncNow: 'Sincronizza ora',
+        done: 'Fatto', quick: 'Come le altre volte', start: 'Arrivata alle', end: 'Andata via alle', morning: 'Mattina', afternoon: 'Pomeriggio', evening: 'Sera',
+        night: 'Notte', nightAdd: '+ È rimasta a dormire', saved: 'Salvato', deleted: 'Eliminato', del: 'Elimina', sure: 'Sicura?', hours: 'ore', h: 'h',
+        nights: 'notti', night1: 'notte', days: 'giorni', total: 'Totale', amount: 'Importo', noEntries: 'Nessuna registrazione questo mese.',
+        today: 'Oggi', yesterday: 'Ieri', changeStart: '‹ Cambia orario di arrivo', thisMonth: 'Questo mese', mid: 'mezzanotte',
+        localOnly: 'Solo locale: i dati restano su questo telefono. Inserisci l\'URL di Apps Script per condividerli e avere un backup.',
+        synced: 'Sincronizzato con Google Sheet.', pending: 'Alcune registrazioni sono in attesa (offline?). Verranno inviate automaticamente.', syncErr: 'Errore di sincronizzazione: ',
+        summaryHead: 'Ore pulizie' }
+};
+
+// ---------- storage ----------
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem('ch.' + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem('ch.' + k, JSON.stringify(v)); } catch {} }
+};
+const cfg = window.CH_CONFIG || {};
+const S = {
+  lang: LS.get('lang', (navigator.language || 'it').toLowerCase().startsWith('it') ? 'it' : 'en'),
+  rate: LS.get('rate', 0), nightRate: LS.get('nightRate', 0),
+  url: LS.get('url', cfg.API_URL || ''), token: LS.get('token', cfg.TOKEN || '')
+};
+let entries = LS.get('entries', []);   // [{id,date,type:'work'|'night',start,end,hours,created}]
+let queue = LS.get('queue', []);       // pending ops: {op:'add',entry} | {op:'delete',id}
+const t = k => (T[S.lang] && T[S.lang][k]) || T.en[k] || k;
+const locale = () => S.lang === 'it' ? 'it-IT' : 'en-GB';
+const $ = id => document.getElementById(id);
+
+// ---------- dates & times ----------
+const pad = n => String(n).padStart(2, '0');
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const parseYmd = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+const todayStr = () => ymd(new Date());
+const toMin = s => { const [h, m] = s.split(':').map(Number); return h * 60 + m; };
+const fromMin = m => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
+const showTime = s => s === '24:00' ? '24:00' : s.replace(/^0/, '');
+const fmtH = h => { const r = Math.round(h * 100) / 100; return (Number.isInteger(r) ? String(r) : r.toFixed(2).replace(/0$/, '')).replace('.', S.lang === 'it' ? ',' : '.'); };
+const fmtEur = v => new Intl.NumberFormat(locale(), { style: 'currency', currency: 'EUR', maximumFractionDigits: v % 1 ? 2 : 0 }).format(v);
+const weekday = (d, style = 'long') => d.toLocaleDateString(locale(), { weekday: style });
+const dayMonth = d => d.toLocaleDateString(locale(), { day: 'numeric', month: 'short' });
+const monthName = (y, m) => new Date(y, m, 1).toLocaleDateString(locale(), { month: 'long', year: 'numeric' });
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2));
+
+// ---------- data ----------
+const save = () => { LS.set('entries', entries); LS.set('queue', queue); };
+const byDate = date => entries.filter(e => e.date === date).sort((a, b) => (a.type === 'night') - (b.type === 'night') || (a.start || '').localeCompare(b.start || ''));
+const monthEntries = (y, m) => { const p = `${y}-${pad(m + 1)}-`; return entries.filter(e => e.date.startsWith(p)).sort((a, b) => a.date.localeCompare(b.date) || (a.start || '').localeCompare(b.start || '')); };
+const totals = list => {
+  const hours = list.filter(e => e.type === 'work').reduce((s, e) => s + e.hours, 0);
+  const nights = list.filter(e => e.type === 'night').length;
+  const days = new Set(list.map(e => e.date)).size;
+  return { hours, nights, days, amount: hours * (S.rate || 0) + nights * (S.nightRate || 0) };
+};
+
+function addEntry(e) {
+  e.id = uid(); e.created = new Date().toISOString();
+  entries.push(e); queue.push({ op: 'add', entry: e }); save(); renderAll(); sync();
+}
+function deleteEntry(id) {
+  entries = entries.filter(e => e.id !== id);
+  const i = queue.findIndex(q => q.op === 'add' && q.entry.id === id);
+  if (i >= 0) queue.splice(i, 1); else queue.push({ op: 'delete', id });
+  save(); renderAll(); sync();
+}
+// Most frequent recent time ranges, offered as one-tap shortcuts.
+function quickRanges() {
+  const counts = new Map();
+  entries.filter(e => e.type === 'work').sort((a, b) => b.created.localeCompare(a.created)).slice(0, 30)
+    .forEach(e => { const k = e.start + '-' + e.end; counts.set(k, (counts.get(k) || 0) + 1); });
+  return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k]) => k.split('-'));
+}
+
+// ---------- sync (Google Apps Script) ----------
+let syncing = false, syncState = 'local', syncMsg = '';
+async function api(payload) {
+  const r = await fetch(S.url, { method: 'POST', body: JSON.stringify({ ...payload, token: S.token }) }); // text/plain: no CORS preflight
+  const j = await r.json();
+  if (!j.ok) throw new Error(j.error || 'server error');
+  return j;
+}
+async function sync() {
+  if (!S.url) { syncState = 'local'; renderSync(); return; }
+  if (syncing) return; syncing = true;
+  try {
+    while (queue.length) {
+      const q = queue[0];
+      await api(q.op === 'add' ? { action: 'add', entry: q.entry } : { action: 'delete', id: q.id });
+      queue.shift(); save();
+    }
+    const j = await api({ action: 'list' });
+    entries = j.entries.map(e => ({ ...e, hours: Number(e.hours) || 0 }));
+    // re-apply anything queued while we were fetching
+    queue.forEach(q => { if (q.op === 'add') entries.push(q.entry); else entries = entries.filter(e => e.id !== q.id); });
+    save(); syncState = queue.length ? 'pending' : 'ok'; syncMsg = '';
+  } catch (err) {
+    syncState = queue.length ? 'pending' : 'err'; syncMsg = String(err.message || err);
+  } finally { syncing = false; renderAll(); }
+}
+
+// ---------- rendering ----------
+let daysShown = 14;
+function renderTexts() {
+  document.documentElement.lang = S.lang;
+  document.querySelectorAll('[data-t]').forEach(el => el.textContent = t(el.dataset.t));
+}
+function renderSync() {
+  $('syncDot').className = 'sync ' + ({ ok: 'ok', pending: 'pending', err: 'err' }[syncState] || '');
+  $('syncNote').textContent = syncState === 'local' ? t('localOnly') : syncState === 'ok' ? t('synced') : syncState === 'pending' ? t('pending') : t('syncErr') + syncMsg;
+}
+function totalSide(tt) {
+  const bits = [];
+  if (tt.amount) bits.push(`<b>${fmtEur(tt.amount)}</b>`);
+  if (tt.nights) bits.push(`${tt.nights} ${tt.nights === 1 ? t('night1') : t('nights')}`);
+  bits.push(`${tt.days} ${t('days')}`);
+  return bits.join('<br>');
+}
+function renderHome() {
+  const now = new Date(), tt = totals(monthEntries(now.getFullYear(), now.getMonth()));
+  $('totLabel').textContent = monthName(now.getFullYear(), now.getMonth());
+  $('totHours').textContent = `${fmtH(tt.hours)} ${t('h')}`;
+  $('totSide').innerHTML = totalSide(tt);
+  const box = $('days'); box.innerHTML = '';
+  const today = todayStr(), yest = ymd(addDays(new Date(), -1));
+  for (let i = 0; i < daysShown; i++) {
+    const d = addDays(new Date(), -i), ds = ymd(d), list = byDate(ds);
+    const b = document.createElement('button');
+    b.className = 'day' + (ds === today ? ' today' : '');
+    const label = ds === today ? t('today') : ds === yest ? t('yesterday') : weekday(d);
+    const sub = ds === today || ds === yest ? weekday(d, 'short') + ' ' + dayMonth(d) : dayMonth(d);
+    const pills = list.map(e => e.type === 'night' ? `<span class="pill night">☾ ${t('night1')}</span>` : `<span class="pill">${showTime(e.start)}–${showTime(e.end)}</span>`).join('');
+    const hrs = list.filter(e => e.type === 'work').reduce((s, e) => s + e.hours, 0);
+    b.innerHTML = `<div class="dname"><b>${label}</b><span>${sub}</span></div><div class="dinfo">${pills}</div>` +
+      (list.length ? (hrs ? `<div class="dhours">${fmtH(hrs)} ${t('h')}</div>` : '') : '<div class="plus">+</div>');
+    b.onclick = () => openDay(ds);
+    box.appendChild(b);
+  }
+}
+let mY, mM;
+function renderMonth() {
+  const list = monthEntries(mY, mM), tt = totals(list);
+  $('mTitle').textContent = monthName(mY, mM);
+  let s = `<div class="mrow"><span class="l">${t('total')}</span><b>${fmtH(tt.hours)} ${t('hours')}</b></div>`;
+  s += `<div class="mrow"><span class="l">${t('days')}</span><span>${tt.days}</span></div>`;
+  if (tt.nights) s += `<div class="mrow"><span class="l">${t('nights')}</span><span>${tt.nights}</span></div>`;
+  if (tt.amount) s += `<div class="mrow"><span class="l">${t('amount')}</span><b>${fmtEur(tt.amount)}</b></div>`;
+  $('mSummary').innerHTML = s;
+  $('mList').innerHTML = list.length ? list.map(e => {
+    const d = parseYmd(e.date);
+    return `<div class="mrow"><span class="l">${weekday(d, 'short')} ${dayMonth(d)}</span><span class="r">` +
+      (e.type === 'night' ? `☾ ${t('night')}` : `${showTime(e.start)}–${showTime(e.end)} · <b>${fmtH(e.hours)} ${t('h')}</b>`) + `</span></div>`;
+  }).join('') : `<div class="empty">${t('noEntries')}</div>`;
+}
+function renderAll() { renderTexts(); renderHome(); renderSync(); if (!$('month').classList.contains('hidden')) renderMonth(); if (sheetDate) renderSheetLogged(); }
+
+// ---------- day sheet ----------
+let sheetDate = null, pickedStart = null;
+const GROUPS = [['morning', 8 * 60 + 30, 12 * 60], ['afternoon', 12 * 60 + 30, 17 * 60 + 30], ['evening', 18 * 60, 22 * 60 + 30]];
+function openDay(ds) {
+  sheetDate = ds; pickedStart = null;
+  const d = parseYmd(ds);
+  $('shTitle').textContent = weekday(d) + ' ' + d.getDate();
+  $('shSub').textContent = d.toLocaleDateString(locale(), { month: 'long', year: 'numeric' });
+  renderSheetLogged(); renderStartStep();
+  $('scrim').classList.add('show'); $('sheet').classList.add('show'); $('sheet').scrollTop = 0;
+}
+function closeSheet() { sheetDate = null; $('scrim').classList.remove('show'); $('sheet').classList.remove('show'); }
+function renderSheetLogged() {
+  const list = byDate(sheetDate);
+  $('shLogged').innerHTML = list.length ? '<div class="logged">' + list.map(e =>
+    `<div class="row"><span class="t">${e.type === 'night' ? '☾ ' + t('night') : `${showTime(e.start)}–${showTime(e.end)} · <b>${fmtH(e.hours)} ${t('h')}</b>`}</span>` +
+    `<button class="del" data-id="${e.id}">${t('del')}</button></div>`).join('') + '</div>' : '';
+  $('shLogged').querySelectorAll('.del').forEach(b => b.onclick = () => {
+    if (b.classList.contains('confirm')) { deleteEntry(b.dataset.id); toast(t('deleted')); }
+    else { b.classList.add('confirm'); b.textContent = t('sure'); setTimeout(() => { if (b.isConnected) { b.classList.remove('confirm'); b.textContent = t('del'); } }, 3000); }
+  });
+}
+function chip(label, small, onClick) {
+  const b = document.createElement('button'); b.className = 'chip';
+  b.innerHTML = label + (small ? `<small>${small}</small>` : ''); b.onclick = onClick; return b;
+}
+function renderStartStep() {
+  const body = $('shBody'); body.innerHTML = '';
+  const q = quickRanges();
+  if (q.length) {
+    body.insertAdjacentHTML('beforeend', `<div class="group-label">${t('quick')}</div>`);
+    const w = document.createElement('div'); w.className = 'quick';
+    q.forEach(([s, e]) => { const h = (toMin(e) - toMin(s)) / 60; w.appendChild(chip(`${showTime(s)} – ${showTime(e)}`, `${fmtH(h)} ${t('h')}`, () => commitWork(s, e))); });
+    body.appendChild(w);
+  }
+  body.insertAdjacentHTML('beforeend', `<div class="group-label" style="margin-top:20px;font-weight:700;color:var(--ink)">${t('start')}</div>`);
+  GROUPS.forEach(([key, a, z]) => {
+    body.insertAdjacentHTML('beforeend', `<div class="group-label">${t(key)}</div>`);
+    const g = document.createElement('div'); g.className = 'chips';
+    for (let m = a; m <= z; m += 30) { const s = fromMin(m); g.appendChild(chip(showTime(s), '', () => { pickedStart = s; renderEndStep(); })); }
+    body.appendChild(g);
+  });
+  const nb = document.createElement('button'); nb.className = 'night-btn'; nb.textContent = t('nightAdd');
+  nb.onclick = () => { addEntry({ date: sheetDate, type: 'night', start: '', end: '', hours: 0 }); toast(`${t('saved')} ☾`); closeSheet(); };
+  body.appendChild(nb);
+}
+function renderEndStep() {
+  const body = $('shBody'); body.innerHTML = '';
+  const back = document.createElement('button'); back.className = 'step-back'; back.textContent = t('changeStart'); back.onclick = renderStartStep;
+  body.appendChild(back);
+  body.insertAdjacentHTML('beforeend', `<div class="group-label" style="font-weight:700;color:var(--ink)">${t('start')} ${showTime(pickedStart)} · ${t('end')}</div>`);
+  const g = document.createElement('div'); g.className = 'chips';
+  const s0 = toMin(pickedStart);
+  for (let m = s0 + 60; m <= 24 * 60; m += 30) {
+    const e = fromMin(m);
+    g.appendChild(chip(m === 24 * 60 ? '24:00' : showTime(e), `${fmtH((m - s0) / 60)} ${t('h')}`, () => commitWork(pickedStart, e)));
+  }
+  body.appendChild(g);
+  $('sheet').scrollTop = 0;
+}
+function commitWork(s, e) {
+  const hours = (toMin(e) - toMin(s)) / 60;
+  addEntry({ date: sheetDate, type: 'work', start: s, end: e, hours });
+  toast(`${t('saved')} ✓  ${fmtH(hours)} ${t('h')}`);
+  closeSheet();
+}
+
+// ---------- misc UI ----------
+let toastTimer;
+function toast(msg) { const el = $('toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 1800); }
+function show(view) { ['home', 'month', 'settings'].forEach(v => $(v).classList.toggle('hidden', v !== view)); window.scrollTo(0, 0); }
+
+function monthSummaryText() {
+  const list = monthEntries(mY, mM), tt = totals(list);
+  const lines = [`${t('summaryHead')} · ${monthName(mY, mM)}`, ''];
+  list.forEach(e => { const d = parseYmd(e.date);
+    lines.push(`${weekday(d, 'short')} ${dayMonth(d)}: ` + (e.type === 'night' ? t('night') : `${showTime(e.start)}–${showTime(e.end)} (${fmtH(e.hours)} ${t('h')})`)); });
+  lines.push('', `${t('total')}: ${fmtH(tt.hours)} ${t('hours')}` + (tt.nights ? `, ${tt.nights} ${t('nights')}` : '') + (tt.amount ? ` = ${fmtEur(tt.amount)}` : ''));
+  return lines.join('\n');
+}
+
+$('openMonth').onclick = () => { const n = new Date(); mY = n.getFullYear(); mM = n.getMonth(); renderMonth(); show('month'); };
+$('closeMonth').onclick = () => show('home');
+$('mPrev').onclick = () => { if (--mM < 0) { mM = 11; mY--; } renderMonth(); };
+$('mNext').onclick = () => { if (++mM > 11) { mM = 0; mY++; } renderMonth(); };
+$('mShare').onclick = async () => {
+  const text = monthSummaryText();
+  try { if (navigator.share) await navigator.share({ text }); else { await navigator.clipboard.writeText(text); toast('✓ Copied'); } } catch {}
+};
+$('mCsv').onclick = () => {
+  const rows = [['date', 'type', 'start', 'end', 'hours']].concat(monthEntries(mY, mM).map(e => [e.date, e.type, e.start, e.end, e.hours]));
+  const blob = new Blob([rows.map(r => r.join(',')).join('\n')], { type: 'text/csv' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `cleaning-${mY}-${pad(mM + 1)}.csv`; a.click();
+};
+$('openSettings').onclick = () => {
+  $('sLang').value = S.lang; $('sRate').value = S.rate || ''; $('sNight').value = S.nightRate || ''; $('sUrl').value = S.url; $('sToken').value = S.token;
+  renderSync(); show('settings');
+};
+$('closeSettings').onclick = () => show('home');
+$('sSave').onclick = () => {
+  S.lang = $('sLang').value; S.rate = parseFloat($('sRate').value) || 0; S.nightRate = parseFloat($('sNight').value) || 0;
+  const urlChanged = S.url !== $('sUrl').value.trim();
+  S.url = $('sUrl').value.trim(); S.token = $('sToken').value.trim();
+  Object.entries(S).forEach(([k, v]) => LS.set(k, v));
+  // First connection: push everything recorded locally so nothing is lost.
+  if (urlChanged && S.url) { const q = new Set(queue.filter(x => x.op === 'add').map(x => x.entry.id)); entries.forEach(e => { if (!q.has(e.id)) queue.push({ op: 'add', entry: e }); }); save(); }
+  renderAll(); toast('✓ ' + t('save')); show('home'); sync();
+};
+$('sSyncNow').onclick = () => sync();
+$('moreDays').onclick = () => { daysShown += 14; renderHome(); };
+$('otherDate').onchange = e => { if (e.target.value) openDay(e.target.value); e.target.value = ''; };
+$('scrim').onclick = closeSheet; $('shClose').onclick = closeSheet;
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { renderAll(); sync(); } });
+window.addEventListener('online', sync);
+
+renderAll(); sync();
+if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+})();
+</script>
+</body>
+</html>
