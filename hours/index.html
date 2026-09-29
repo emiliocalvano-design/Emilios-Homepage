@@ -182,7 +182,7 @@ header h1 { font-size: 22px; margin: 0; letter-spacing: -.01em; }
   </div>
   <div class="section-title" data-t="sync"></div>
   <div class="panel">
-    <label class="field"><span>Google Apps Script URL</span><input id="sUrl" type="url" autocapitalize="off" autocorrect="off" placeholder="https://script.google.com/macros/s/…/exec"></label>
+    <label class="field"><span>Setup link / Apps Script URL</span><input id="sUrl" type="text" autocapitalize="off" autocorrect="off" placeholder="https://script.google.com/macros/s/…/exec"></label>
     <label class="field"><span>Token</span><input id="sToken" type="text" autocapitalize="off" autocorrect="off"></label>
   </div>
   <p class="note" id="syncNote"></p>
@@ -236,6 +236,14 @@ const LS = {
   set(k, v) { try { localStorage.setItem('ch.' + k, JSON.stringify(v)); } catch {} }
 };
 const cfg = window.CH_CONFIG || {};
+// Private setup link: <page>#setup=<base64 of {"u":url,"t":token}>. The hash never reaches the web server.
+function parseSetup(s) {
+  const m = /#setup=([A-Za-z0-9_\-+/=]+)/.exec(s || '');
+  if (!m) return null;
+  try { const o = JSON.parse(atob(m[1].replace(/-/g, '+').replace(/_/g, '/'))); return o.u && o.t ? o : null; } catch { return null; }
+}
+const setup = parseSetup(location.hash);
+if (setup) { LS.set('url', setup.u); LS.set('token', setup.t); history.replaceState(null, '', location.pathname); }
 const S = {
   lang: LS.get('lang', (navigator.language || 'it').toLowerCase().startsWith('it') ? 'it' : 'en'),
   rate: LS.get('rate', 0), nightRate: LS.get('nightRate', 0),
@@ -293,7 +301,7 @@ function quickRanges() {
 }
 
 // ---------- sync (Google Apps Script) ----------
-let syncing = false, syncState = 'local', syncMsg = '';
+let syncing = false, syncAgain = false, syncState = 'local', syncMsg = '';
 async function api(payload) {
   const r = await fetch(S.url, { method: 'POST', body: JSON.stringify({ ...payload, token: S.token }) }); // text/plain: no CORS preflight
   const j = await r.json();
@@ -302,7 +310,7 @@ async function api(payload) {
 }
 async function sync() {
   if (!S.url) { syncState = 'local'; renderSync(); return; }
-  if (syncing) return; syncing = true;
+  if (syncing) { syncAgain = true; return; } syncing = true;
   try {
     while (queue.length) {
       const q = queue[0];
@@ -310,13 +318,14 @@ async function sync() {
       queue.shift(); save();
     }
     const j = await api({ action: 'list' });
-    entries = j.entries.map(e => ({ ...e, hours: Number(e.hours) || 0 }));
+    const hm = s => s ? s.replace(/^(\d):/, '0$1:').slice(0, 5) : '';  // sheet may return 8:30 or 08:30:00
+    entries = j.entries.map(e => ({ ...e, start: hm(e.start), end: hm(e.end), hours: Number(e.hours) || 0 }));
     // re-apply anything queued while we were fetching
     queue.forEach(q => { if (q.op === 'add') entries.push(q.entry); else entries = entries.filter(e => e.id !== q.id); });
     save(); syncState = queue.length ? 'pending' : 'ok'; syncMsg = '';
   } catch (err) {
     syncState = queue.length ? 'pending' : 'err'; syncMsg = String(err.message || err);
-  } finally { syncing = false; renderAll(); }
+  } finally { syncing = false; renderAll(); if (syncAgain) { syncAgain = false; sync(); } }
 }
 
 // ---------- rendering ----------
@@ -475,8 +484,10 @@ $('openSettings').onclick = () => {
 $('closeSettings').onclick = () => show('home');
 $('sSave').onclick = () => {
   S.lang = $('sLang').value; S.rate = parseFloat($('sRate').value) || 0; S.nightRate = parseFloat($('sNight').value) || 0;
-  const urlChanged = S.url !== $('sUrl').value.trim();
-  S.url = $('sUrl').value.trim(); S.token = $('sToken').value.trim();
+  const pasted = parseSetup($('sUrl').value.trim());   // the whole setup link can be pasted into the URL field
+  const newUrl = pasted ? pasted.u : $('sUrl').value.trim(), newToken = pasted ? pasted.t : $('sToken').value.trim();
+  const urlChanged = S.url !== newUrl;
+  S.url = newUrl; S.token = newToken;
   Object.entries(S).forEach(([k, v]) => LS.set(k, v));
   // First connection: push everything recorded locally so nothing is lost.
   if (urlChanged && S.url) { const q = new Set(queue.filter(x => x.op === 'add').map(x => x.entry.id)); entries.forEach(e => { if (!q.has(e.id)) queue.push({ op: 'add', entry: e }); }); save(); }
