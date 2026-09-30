@@ -536,6 +536,13 @@ $('otherDate').onchange = e => { if (e.target.value) openDay(e.target.value); e.
 $('scrim').onclick = closeSheet; $('shClose').onclick = closeSheet;
 document.addEventListener('visibilitychange', () => { if (!document.hidden) { renderAll(); sync(); } });
 window.addEventListener('online', sync);
+// Background sync while the app is open: retry failed uploads every 15 s, refresh from the sheet every 60 s.
+let lastSync = Date.now();
+setInterval(() => {
+  if (document.hidden || !S.url || syncing) return;
+  const due = queue.length || syncState === 'err' ? 15000 : 60000;
+  if (Date.now() - lastSync >= due) { lastSync = Date.now(); sync(); }
+}, 5000);
 
 renderAll(); sync();
 if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
