@@ -115,8 +115,12 @@ header h1 { font-size: 22px; margin: 0; letter-spacing: -.01em; }
 .note { font-size: 13px; color: var(--muted); margin: 10px 4px; }
 .empty { color: var(--muted); padding: 14px 0; text-align: center; }
 
+.connect { background: #fff4d6; color: #5c4200; border: 1.5px solid #e0a100; border-radius: 14px; padding: 12px 14px; margin: 4px 0 12px; font-size: 15px; }
+.connect b { display: block; margin-bottom: 2px; }
+.connect button { margin-top: 10px; background: #e0a100; color: #221800; font-weight: 700; border-radius: 10px; padding: 10px 14px; width: 100%; }
+@media (prefers-color-scheme: dark) { .connect { background: #3a2f10; color: #ffe3a0; } }
 .toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom) + 28px); transform: translate(-50%, 20px); background: var(--ink); color: var(--bg);
-  padding: 12px 20px; border-radius: 24px; font-weight: 600; opacity: 0; transition: all .2s; z-index: 20; white-space: nowrap; pointer-events: none; }
+  padding: 12px 20px; border-radius: 24px; font-weight: 600; opacity: 0; transition: all .2s; z-index: 20; max-width: 90vw; text-align: center; pointer-events: none; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 </style>
 </head>
@@ -131,6 +135,10 @@ header h1 { font-size: 22px; margin: 0; letter-spacing: -.01em; }
     </button>
   </header>
 
+  <div class="connect hidden" id="connectBox">
+    <b data-t="notConnected"></b><span data-t="notConnectedSub"></span>
+    <button id="pasteSetup" data-t="pasteSetup"></button>
+  </div>
   <button class="total" id="openMonth">
     <div>
       <div class="label" id="totLabel"></div>
@@ -217,7 +225,8 @@ const T = {
         today: 'Today', yesterday: 'Yesterday', changeStart: '‹ Change arrival time', thisMonth: 'This month', mid: 'midnight',
         localOnly: 'Local only: data is stored on this phone. Add the Apps Script URL to share it and keep a backup.',
         synced: 'Synced with Google Sheet.', pending: 'Some entries are waiting to sync (offline?). They will be sent automatically.', syncErr: 'Sync error: ',
-        summaryHead: 'Cleaning hours' },
+        summaryHead: 'Cleaning hours', notConnected: 'Not connected to the Google Sheet', notConnectedSub: 'Hours are saved only on this phone and will be uploaded once connected.',
+        pasteSetup: 'Paste setup link', badLink: 'Copy the setup link first, then tap again', connected: 'Connected ✓' },
   it: { title: 'Ore pulizie', details: 'Tocca per il dettaglio del mese', tapDay: 'Tocca un giorno per segnare le ore', moreDays: 'Mostra giorni precedenti', otherDate: 'Scegli un\'altra data…',
         back: 'Indietro', entries: 'Registrazioni', share: 'Condividi riepilogo', csv: 'Scarica CSV', settings: 'Impostazioni', lang: 'Lingua',
         rate: 'Tariffa oraria (€), facoltativa', nightRate: 'Notte (€ a notte), facoltativa', sync: 'Sincronizzazione Google Sheet', save: 'Salva', syncNow: 'Sincronizza ora',
@@ -227,7 +236,8 @@ const T = {
         today: 'Oggi', yesterday: 'Ieri', changeStart: '‹ Cambia orario di arrivo', thisMonth: 'Questo mese', mid: 'mezzanotte',
         localOnly: 'Solo locale: i dati restano su questo telefono. Inserisci l\'URL di Apps Script per condividerli e avere un backup.',
         synced: 'Sincronizzato con Google Sheet.', pending: 'Alcune registrazioni sono in attesa (offline?). Verranno inviate automaticamente.', syncErr: 'Errore di sincronizzazione: ',
-        summaryHead: 'Ore pulizie' }
+        summaryHead: 'Ore pulizie', notConnected: 'Non collegata al foglio Google', notConnectedSub: 'Le ore restano solo su questo telefono e verranno caricate appena collegata.',
+        pasteSetup: 'Incolla link di configurazione', badLink: 'Copia prima il link di configurazione, poi tocca di nuovo', connected: 'Collegata ✓' }
 };
 
 // ---------- storage ----------
@@ -335,6 +345,7 @@ function renderTexts() {
   document.querySelectorAll('[data-t]').forEach(el => el.textContent = t(el.dataset.t));
 }
 function renderSync() {
+  $('connectBox').classList.toggle('hidden', !!S.url);
   $('syncDot').className = 'sync ' + ({ ok: 'ok', pending: 'pending', err: 'err' }[syncState] || '');
   $('syncNote').textContent = syncState === 'local' ? t('localOnly') : syncState === 'ok' ? t('synced') : syncState === 'pending' ? t('pending') : t('syncErr') + syncMsg;
 }
@@ -494,6 +505,13 @@ $('sSave').onclick = () => {
   renderAll(); toast('✓ ' + t('save')); show('home'); sync();
 };
 $('sSyncNow').onclick = () => sync();
+$('pasteSetup').onclick = async () => {
+  let o = null;
+  try { o = parseSetup(await navigator.clipboard.readText()); } catch {}
+  if (!o) { toast(t('badLink')); return; }
+  S.url = o.u; S.token = o.t; LS.set('url', S.url); LS.set('token', S.token);
+  toast(t('connected')); renderAll(); sync();
+};
 $('moreDays').onclick = () => { daysShown += 14; renderHome(); };
 $('otherDate').onchange = e => { if (e.target.value) openDay(e.target.value); e.target.value = ''; };
 $('scrim').onclick = closeSheet; $('shClose').onclick = closeSheet;
