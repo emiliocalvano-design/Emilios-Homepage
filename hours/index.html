@@ -226,7 +226,7 @@ const T = {
         localOnly: 'Local only: data is stored on this phone. Add the Apps Script URL to share it and keep a backup.',
         synced: 'Synced with Google Sheet.', pending: 'Some entries are waiting to sync (offline?). They will be sent automatically.', syncErr: 'Sync error: ',
         summaryHead: 'Cleaning hours', notConnected: 'Not connected to the Google Sheet', notConnectedSub: 'Hours are saved only on this phone and will be uploaded once connected.',
-        pasteSetup: 'Paste setup link', badLink: 'Copy the setup link first, then tap again', connected: 'Connected ✓' },
+        needLink: 'Paste the setup link in the first field', syncing: 'Syncing…', pasteSetup: 'Paste setup link', badLink: 'Copy the setup link first, then tap again', connected: 'Connected ✓' },
   it: { title: 'Ore pulizie', details: 'Tocca per il dettaglio del mese', tapDay: 'Tocca un giorno per segnare le ore', moreDays: 'Mostra giorni precedenti', otherDate: 'Scegli un\'altra data…',
         back: 'Indietro', entries: 'Registrazioni', share: 'Condividi riepilogo', csv: 'Scarica CSV', settings: 'Impostazioni', lang: 'Lingua',
         rate: 'Tariffa oraria (€), facoltativa', nightRate: 'Notte (€ a notte), facoltativa', sync: 'Sincronizzazione Google Sheet', save: 'Salva', syncNow: 'Sincronizza ora',
@@ -237,7 +237,7 @@ const T = {
         localOnly: 'Solo locale: i dati restano su questo telefono. Inserisci l\'URL di Apps Script per condividerli e avere un backup.',
         synced: 'Sincronizzato con Google Sheet.', pending: 'Alcune registrazioni sono in attesa (offline?). Verranno inviate automaticamente.', syncErr: 'Errore di sincronizzazione: ',
         summaryHead: 'Ore pulizie', notConnected: 'Non collegata al foglio Google', notConnectedSub: 'Le ore restano solo su questo telefono e verranno caricate appena collegata.',
-        pasteSetup: 'Incolla link di configurazione', badLink: 'Copia prima il link di configurazione, poi tocca di nuovo', connected: 'Collegata ✓' }
+        needLink: 'Incolla il link di configurazione nel primo campo', syncing: 'Sincronizzazione…', pasteSetup: 'Incolla link di configurazione', badLink: 'Copia prima il link di configurazione, poi tocca di nuovo', connected: 'Collegata ✓' }
 };
 
 // ---------- storage ----------
@@ -311,7 +311,7 @@ function quickRanges() {
 }
 
 // ---------- sync (Google Apps Script) ----------
-let syncing = false, syncAgain = false, syncState = 'local', syncMsg = '';
+let syncing = false, syncAgain = false, syncDone = Promise.resolve(), syncState = 'local', syncMsg = '';
 async function api(payload) {
   const r = await fetch(S.url, { method: 'POST', body: JSON.stringify({ ...payload, token: S.token }) }); // text/plain: no CORS preflight
   const j = await r.json();
@@ -320,7 +320,8 @@ async function api(payload) {
 }
 async function sync() {
   if (!S.url) { syncState = 'local'; renderSync(); return; }
-  if (syncing) { syncAgain = true; return; } syncing = true;
+  if (syncing) { syncAgain = true; return syncDone; } syncing = true;
+  let finish; syncDone = new Promise(r => finish = r);
   try {
     while (queue.length) {
       const q = queue[0];
@@ -335,7 +336,7 @@ async function sync() {
     save(); syncState = queue.length ? 'pending' : 'ok'; syncMsg = '';
   } catch (err) {
     syncState = queue.length ? 'pending' : 'err'; syncMsg = String(err.message || err);
-  } finally { syncing = false; renderAll(); if (syncAgain) { syncAgain = false; sync(); } }
+  } finally { syncing = false; renderAll(); finish(); if (syncAgain) { syncAgain = false; sync(); } }
 }
 
 // ---------- rendering ----------
@@ -463,7 +464,7 @@ function commitWork(s, e) {
 
 // ---------- misc UI ----------
 let toastTimer;
-function toast(msg) { const el = $('toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 1800); }
+function toast(msg, ms = 1800) { const el = $('toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), ms); }
 function show(view) { ['home', 'month', 'settings'].forEach(v => $(v).classList.toggle('hidden', v !== view)); window.scrollTo(0, 0); }
 
 function monthSummaryText() {
@@ -493,18 +494,27 @@ $('openSettings').onclick = () => {
   renderSync(); show('settings');
 };
 $('closeSettings').onclick = () => show('home');
-$('sSave').onclick = () => {
+function applySettings() {
   S.lang = $('sLang').value; S.rate = parseFloat($('sRate').value) || 0; S.nightRate = parseFloat($('sNight').value) || 0;
-  const pasted = parseSetup($('sUrl').value.trim());   // the whole setup link can be pasted into the URL field
-  const newUrl = pasted ? pasted.u : $('sUrl').value.trim(), newToken = pasted ? pasted.t : $('sToken').value.trim();
+  const raw = $('sUrl').value.replace(/\s+/g, '');
+  const pasted = parseSetup(raw);   // the whole setup link can be pasted into the URL field
+  const newUrl = pasted ? pasted.u : raw, newToken = pasted ? pasted.t : $('sToken').value.trim();
   const urlChanged = S.url !== newUrl;
   S.url = newUrl; S.token = newToken;
   Object.entries(S).forEach(([k, v]) => LS.set(k, v));
   // First connection: push everything recorded locally so nothing is lost.
   if (urlChanged && S.url) { const q = new Set(queue.filter(x => x.op === 'add').map(x => x.entry.id)); entries.forEach(e => { if (!q.has(e.id)) queue.push({ op: 'add', entry: e }); }); save(); }
-  renderAll(); toast('✓ ' + t('save')); show('home'); sync();
+  $('sUrl').value = S.url; $('sToken').value = S.token;
+  renderAll();
+}
+$('sSave').onclick = () => { applySettings(); toast('✓ ' + t('save')); show('home'); sync(); };
+$('sSyncNow').onclick = async () => {
+  applySettings();
+  if (!S.url) { toast(t('needLink')); return; }
+  toast(t('syncing'), 30000);
+  await sync();
+  toast(syncState === 'ok' ? t('synced') : syncState === 'pending' ? t('pending') : t('syncErr') + syncMsg, 3000);
 };
-$('sSyncNow').onclick = () => sync();
 $('pasteSetup').onclick = async () => {
   let o = null;
   try { o = parseSetup(await navigator.clipboard.readText()); } catch {}
