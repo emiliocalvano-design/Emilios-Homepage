@@ -47,11 +47,11 @@ body {
   }
   // Find the UTC instant corresponding to a Rome wall-clock time.
   function romeToUTC(y, mo, d, h, mi) {
-    var guess = Date.UTC(y, mo - 1, d, h, mi, 0);
+    var wall = Date.UTC(y, mo - 1, d, h, mi, 0), guess = wall;
     for (var i = 0; i < 3; i++) {
       var p = romeParts(new Date(guess));
       var asUTC = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
-      var diff = asUTC - guess;
+      var diff = asUTC - wall;
       if (diff === 0) break;
       guess -= diff;
     }
