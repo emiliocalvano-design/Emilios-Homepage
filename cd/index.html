@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Countdown</title>
+<meta name="theme-color" content="#146e64">
+<style>
+:root { --bg: #f4f1ea; --ink: #1d2422; --muted: #6b7471; --accent: #146e64; --danger: #b3261e; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #121615; --ink: #ecefed; --muted: #97a19d; --accent: #3fb3a3; --danger: #ff8a80; }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); }
+body {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  padding: 16px; text-align: center; -webkit-user-select: none; user-select: none;
+}
+.label { color: var(--muted); font-size: clamp(14px, 2.5vw, 20px); letter-spacing: .08em; text-transform: uppercase; }
+.time {
+  font-variant-numeric: tabular-nums; font-weight: 200; line-height: 1;
+  font-size: clamp(72px, 24vw, 280px); letter-spacing: -.02em; margin: .1em 0;
+}
+.time.late { color: var(--danger); }
+.target { color: var(--muted); font-size: clamp(13px, 2vw, 17px); }
+.target b { color: var(--accent); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="label" id="label">Time remaining</div>
+<div class="time" id="time">--:--</div>
+<div class="target" id="target"></div>
+<script>
+(function () {
+  // Target: 14:57 Rome time today. Override with ?t=HH:MM and/or ?d=YYYY-MM-DD.
+  var TZ = 'Europe/Rome';
+  var q = new URLSearchParams(location.search);
+  var fmt = new Intl.DateTimeFormat('en-GB', { timeZone: TZ, hourCycle: 'h23',
+    year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+  function romeParts(date) {
+    var o = {};
+    fmt.formatToParts(date).forEach(function (p) { o[p.type] = p.value; });
+    return o;
+  }
+  // Find the UTC instant corresponding to a Rome wall-clock time.
+  function romeToUTC(y, mo, d, h, mi) {
+    var wall = Date.UTC(y, mo - 1, d, h, mi, 0), guess = wall;
+    for (var i = 0; i < 3; i++) {
+      var p = romeParts(new Date(guess));
+      var asUTC = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
+      var diff = asUTC - wall;
+      if (diff === 0) break;
+      guess -= diff;
+    }
+    return guess;
+  }
+
+  var now = romeParts(new Date());
+  var dateStr = q.get('d') || (now.year + '-' + now.month + '-' + now.day);
+  var timeStr = q.get('t') || '14:57';
+  var dp = dateStr.split('-').map(Number), tp = timeStr.split(':').map(Number);
+  var target = romeToUTC(dp[0], dp[1], dp[2], tp[0], tp[1]);
+
+  var elTime = document.getElementById('time'), elLabel = document.getElementById('label');
+  document.getElementById('target').innerHTML = 'until <b>' + timeStr + '</b> Rome time, ' + dateStr;
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function tick() {
+    var ms = target - Date.now();
+    var late = ms < 0;
+    var s = Math.floor(Math.abs(ms) / 1000);
+    var m = Math.floor(s / 60); s = s % 60;
+    elTime.textContent = (late ? '+' : '') + pad(m) + ':' + pad(s);
+    elTime.classList.toggle('late', late);
+    elLabel.textContent = late ? 'Time elapsed since' : 'Time remaining';
+    document.title = elTime.textContent + ' · Countdown';
+  }
+  tick();
+  setInterval(tick, 250);
+})();
+</script>
+</body>
+</html>
