@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>ACE 2026 Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2e2e2e; --muted:#7d7d7d; --line:#e6e6e6; --bg:#fff; --card:#fafafa;
+    --acc:#1f5f7a; --acc-bg:#e9f1f4; --me:#7a1f1f; --me-bg:#f6ecec; --now:#3f6b3a; --now-bg:#eaf1e9;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#e8e8e8; --muted:#9a9a9a; --line:#333; --bg:#151515; --card:#1d1d1d;
+      --acc:#7fbfd9; --acc-bg:#1d2c33; --me:#e39a9a; --me-bg:#3a2222; --now:#9fd19a; --now-bg:#203020;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e8e8e8; --muted:#9a9a9a; --line:#333; --bg:#151515; --card:#1d1d1d;
+    --acc:#7fbfd9; --acc-bg:#1d2c33; --me:#e39a9a; --me-bg:#3a2222; --now:#9fd19a; --now-bg:#203020;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;font-family:'Raleway','Helvetica Neue',Arial,sans-serif;font-weight:400;
+    color:var(--ink);background:var(--bg);line-height:1.45;font-size:16px;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 16px 80px;}
+  header{padding:20px 0 6px;}
+  h1{font-weight:600;font-size:21px;margin:0 0 3px;}
+  .sub{color:var(--muted);font-size:13px;}
+  .sub a{color:var(--acc);}
+  .tabs{position:sticky;top:0;z-index:30;background:var(--bg);display:flex;gap:8px;
+    padding:10px 0 8px;border-bottom:1px solid var(--line);}
+  .tab{border:1px solid var(--line);background:var(--bg);color:var(--muted);font-family:inherit;
+    font-size:13px;font-weight:500;padding:7px 14px;border-radius:20px;cursor:pointer;}
+  .tab[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:transparent;}
+  .day{display:none;} .day.on{display:block;}
+  .slot{display:flex;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line);}
+  .slot.now{background:var(--now-bg);border-left:3px solid var(--now);padding-left:8px;}
+  .slot.past{opacity:.5;}
+  .time{flex:0 0 74px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px;}
+  .now .time{color:var(--now);font-weight:600;}
+  .b{flex:1;min-width:0;}
+  .t{font-weight:600;font-size:15px;}
+  .brk .t{font-weight:400;color:var(--muted);}
+  .room{font-size:12.5px;color:var(--acc);margin-top:1px;}
+  .ppl{font-size:13.5px;margin-top:4px;}
+  .chair{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .par{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px;}
+  @media (min-width:640px){.par{grid-template-columns:repeat(3,1fr);}}
+  .s{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 10px;font-size:13px;}
+  .s.me{background:var(--me-bg);border-color:var(--me);}
+  .s .id{font-size:10.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--acc);}
+  .s.me .id{color:var(--me);}
+  .s .case{font-weight:600;font-size:14px;margin:2px 0 1px;}
+  .s .kind{font-size:11.5px;color:var(--muted);margin-bottom:5px;}
+  .s .r{margin:2px 0;}
+  .s .r b{font-weight:600;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;}
+  .badge{display:inline-block;font-size:10px;font-weight:600;background:var(--me);color:var(--bg);
+    padding:1px 6px;border-radius:4px;margin-left:4px;vertical-align:middle;}
+  .note{font-size:12px;color:var(--muted);margin-top:18px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>ACE 2026 · Toulouse</h1>
+  <div class="sub">TSE, Building Rempart, 2 Rue du Doyen Gabriel Marty · Chatham House rules · <a href="https://www.competitioneconomics.org/_files/ugd/9203cc_0541ae88b8534bdaafd2f337939f85ed.pdf" target="_blank" rel="noopener">official PDF</a></div>
+</header>
+<nav class="tabs">
+  <button class="tab" data-d="d1" aria-pressed="true">Thu 12 Nov</button>
+  <button class="tab" data-d="d2" aria-pressed="false">Fri 13 Nov</button>
+</nav>
+
+<section class="day on" id="d1" data-date="2026-11-12">
+  <div class="slot brk" data-s="08:30" data-e="09:00"><div class="time">08:30–09:00</div><div class="b"><div class="t">Registration</div></div></div>
+  <div class="slot brk" data-s="09:00" data-e="09:10"><div class="time">09:00–09:10</div><div class="b"><div class="t">Opening and welcome</div></div></div>
+  <div class="slot" data-s="09:10" data-e="10:30"><div class="time">09:10–10:30</div><div class="b">
+    <div class="t">Plenary I: Dynamic capabilities, effects and efficiencies in the new merger guidelines</div>
+    <div class="room">Amphitheatre 2, Rempart</div>
+    <div class="ppl">Annemiek Wilpshaar (DG COMP), Giulio Federico (Oxera), Jorge Padilla (Compass Lexecon), Xavier Vives (IESE)</div>
+    <div class="chair">Chair: Ethel Fonseca (RBB)</div></div></div>
+  <div class="slot brk" data-s="10:30" data-e="11:10"><div class="time">10:30–11:10</div><div class="b"><div class="t">Coffee break · Bâtiment Rempart</div></div></div>
+  <div class="slot" data-s="11:10" data-e="12:20"><div class="time">11:10–12:20</div><div class="b">
+    <div class="t">Parallel sessions A</div>
+    <div class="room">Auditorium JJL A3 · Auditorium 5 · Auditorium 6</div>
+    <div class="par">
+      <div class="s"><div class="id">A.1 EC Antitrust</div><div class="case">Microsoft Teams (AT.40721 / AT.40873)</div><div class="kind">Antitrust</div>
+        <div class="r"><b>Mod</b> Antonio Buttà (AGCM)</div><div class="r"><b>Agency</b> David Kovo (EC)</div><div class="r"><b>Consultant</b> Matteo Foschi (CRA)</div><div class="r"><b>Discussant</b> Leonardo Madio (Padua)</div></div>
+      <div class="s"><div class="id">A.2 National Merger</div><div class="case">Demant / Kind</div><div class="kind">Merger</div>
+        <div class="r"><b>Mod</b> Chris Doyle (CMA)</div><div class="r"><b>Agency</b> Marcel Baltz, Martin Kersting (Bundeskartellamt)</div><div class="r"><b>Consultant</b> Hans Friederiszick, Bas Dessens (E.CA)</div><div class="r"><b>Discussant</b> Germain Gaudin (Freiburg)</div></div>
+      <div class="s"><div class="id">A.3 National Antitrust</div><div class="case">Cartel damages</div><div class="kind">Cartel damages</div>
+        <div class="r"><b>Mod</b> Patricia Lorenzo (Compass Lexecon)</div><div class="r"><b>Agency</b> Ana Viejo (CNMC)</div><div class="r"><b>Consultant</b> Casilda Prado (RBB)</div><div class="r"><b>Discussant</b> Marc Ivaldi (TSE)</div></div>
+    </div></div></div>
+  <div class="slot brk" data-s="12:20" data-e="13:30"><div class="time">12:20–13:30</div><div class="b"><div class="t">Lunch · Bâtiment Rempart</div></div></div>
+  <div class="slot" data-s="13:30" data-e="14:20"><div class="time">13:30–14:20</div><div class="b">
+    <div class="t">Keynote: Patrick Rey (TSE)</div>
+    <div class="room">Amphitheatre 2, Rempart</div>
+    <div class="chair">Introduced by Griet Jans (Belgian Competition Authority)</div></div></div>
+  <div class="slot" data-s="14:20" data-e="15:40"><div class="time">14:20–15:40</div><div class="b">
+    <div class="t">Plenary II: Article 102</div>
+    <div class="room">Amphitheatre 2, Rempart</div>
+    <div class="ppl">Amaryllis Mueller (Cleary Gottlieb), Benoit Durand (RBB), Lluis Sauri (DG COMP), Massimo Motta (UPF and BSE)</div>
+    <div class="chair">Chair: Adina Claici (BRG)</div></div></div>
+  <div class="slot brk" data-s="15:40" data-e="16:20"><div class="time">15:40–16:20</div><div class="b"><div class="t">Coffee break</div></div></div>
+  <div class="slot" data-s="16:20" data-e="17:30"><div class="time">16:20–17:30</div><div class="b">
+    <div class="t">Parallel sessions B</div>
+    <div class="room">Auditorium JJL A3 · Auditorium 5 · Auditorium 6</div>
+    <div class="par">
+      <div class="s"><div class="id">B.1 National Antitrust</div><div class="case">Tapwell (RPM case)</div><div class="kind">Antitrust</div>
+        <div class="r"><b>Mod</b> Kenneth Baltzer (DCCA)</div><div class="r"><b>Agency</b> Martin Mandorff, Diego Gomez Ruales (Swedish CA)</div><div class="r"><b>Consultant</b> Petter Berg, Jimmy Gårdebrink (RBB)</div><div class="r"><b>Discussant</b> Yossi Spiegel (Tel Aviv)</div></div>
+      <div class="s me"><div class="id">B.2 National Merger <span class="badge">YOU</span></div><div class="case">Getty Images / Shutterstock</div><div class="kind">Merger</div>
+        <div class="r"><b>Mod</b> Francesca Sala (Oxera)</div><div class="r"><b>Agency</b> Maddy Dibble, Cecilia Rossi (CMA)</div><div class="r"><b>Consultant</b> Liam Connelly (CRA)</div><div class="r"><b>Discussant</b> Emilio Calvano (LUISS)</div></div>
+      <div class="s"><div class="id">B.3 EC Policy Session</div><div class="case">Energy State Aid</div><div class="kind">State aid</div>
+        <div class="r"><b>Mod</b> Theon van Dijk (RBB)</div><div class="r"><b>Agency</b> Zlata Jakubovic (EC)</div><div class="r"><b>Consultant</b> Hugo Talbot (Oxera) / Fabien Roques (Compass Lexecon)</div><div class="r"><b>Discussant</b> Estelle Cantillon (ULB)</div></div>
+    </div></div></div>
+  <div class="slot" data-s="17:30" data-e="18:40"><div class="time">17:30–18:40</div><div class="b">
+    <div class="t">Parallel sessions C</div>
+    <div class="room">Auditorium JJL A3 · Auditorium 5 · Auditorium 6</div>
+    <div class="par">
+      <div class="s"><div class="id">C.1 EC Merger</div><div class="case">Naspers / Jet</div><div class="kind">Minority shareholdings</div>
+        <div class="r"><b>Mod</b> Alexis Walckiers (ECA)</div><div class="r"><b>Agency</b> Stefano Callari (EC)</div><div class="r"><b>Consultant</b> Tamrat Shone (Oxera)</div><div class="r"><b>Discussant</b> Albert Banal-Estañol (UPF)</div></div>
+      <div class="s"><div class="id">C.2 National Merger</div><div class="case">Oximesa / Esteve Teijin</div><div class="kind">Merger</div>
+        <div class="r"><b>Mod</b> Steffen Siries (Solve)</div><div class="r"><b>Agency</b> Ane Miren Martín (CNMC)</div><div class="r"><b>Consultant</b> Soledad Pereiras (Compass Lexecon)</div><div class="r"><b>Discussant</b> Elena Argentesi (Bologna)</div></div>
+      <div class="s"><div class="id">C.3 National Merger</div><div class="case">Aeon / Tsuruha Retail</div><div class="kind">Merger</div>
+        <div class="r"><b>Mod</b> Cyril Hariton (Analysis Group)</div><div class="r"><b>Agency</b> Shungo Omiya (JFTC)</div><div class="r"><b>Consultant</b> Keita Fukunaga (AlixPartners)</div><div class="r"><b>Discussant</b> Claire Chambolle (INRAE)</div></div>
+    </div></div></div>
+  <div class="slot" data-s="19:45" data-e="22:15"><div class="time">19:45–22:15</div><div class="b">
+    <div class="t">Conference dinner</div>
+    <div class="ppl">19:45 arrival with drinks · 20:30 dinner</div></div></div>
+</section>
+
+<section class="day" id="d2" data-date="2026-11-13">
+  <div class="slot" data-s="09:00" data-e="10:20"><div class="time">09:00–10:20</div><div class="b">
+    <div class="t">Plenary III: Digital regulation and antitrust, a state of play</div>
+    <div class="room">Amphitheatre 2, Rempart</div>
+    <div class="ppl">Elisabetta Iossa (AGCM), Liliane Karlinger (DG COMP), Michael Katz (UC Berkeley), Benno Buehler (CRA)</div>
+    <div class="chair">Chair: Kirsten Edward Warren (Econic Partners)</div></div></div>
+  <div class="slot" data-s="10:20" data-e="11:00"><div class="time">10:20–11:00</div><div class="b">
+    <div class="t">Best Paper Award</div>
+    <div class="room">Amphitheatre 2, Rempart</div>
+    <div class="ppl">Byrne, de Roos, Lewis, Marx, Wu: "Asymmetric Information Sharing in Oligopoly: A Natural Experiment in Retail Gasoline"</div>
+    <div class="chair">Introduced by Alexandre de Cornière (TSE)</div></div></div>
+  <div class="slot brk" data-s="11:00" data-e="11:30"><div class="time">11:00–11:30</div><div class="b"><div class="t">Coffee break</div></div></div>
+  <div class="slot" data-s="11:30" data-e="12:40"><div class="time">11:30–12:40</div><div class="b">
+    <div class="t">Parallel sessions D</div>
+    <div class="room">Auditorium JJL A3 · Auditorium 5 · Auditorium 6</div>
+    <div class="par">
+      <div class="s"><div class="id">D.1 EC Merger</div><div class="case">Mars / Kellanova</div><div class="kind">Merger</div>
+        <div class="r"><b>Mod</b> Joan de Solà-Morales (RBB)</div><div class="r"><b>Agency</b> Benedikt Herz (EC)</div><div class="r"><b>Consultant</b> Max Schlosser (Oxera); Matthew Bennett (CRA)</div><div class="r"><b>Discussant</b> Flavio Toxvaerd (Cambridge)</div></div>
+      <div class="s"><div class="id">D.2 National Merger</div><div class="case">CUF / HPA</div><div class="kind">Merger</div>
+        <div class="r"><b>Mod</b> Paulo Abecasis (Copenhagen Economics)</div><div class="r"><b>Agency</b> Mariana Costa, Ruben Bento (AdC)</div><div class="r"><b>Consultant</b> Bernardo Sarmento (Compass Lexecon)</div><div class="r"><b>Discussant</b> Hugo Molina (INRAE)</div></div>
+      <div class="s"><div class="id">D.3 Joint Policy Session</div><div class="case">Veterinary market investigation</div><div class="kind">Market investigation · exchange between agencies</div>
+        <div class="r"><b>Agencies</b> Gordon McKinlay (CMA), Jan Tichem (ACM)</div><div class="r"><b>Consultants</b> Grant Saggers (NERA), Mike Owen (Frontier)</div></div>
+    </div></div></div>
+  <div class="slot brk" data-s="12:40" data-e="13:40"><div class="time">12:40–13:40</div><div class="b"><div class="t">Short lunch · Bâtiment Rempart</div></div></div>
+  <div class="slot" data-s="13:40" data-e="15:00"><div class="time">13:40–15:00</div><div class="b">
+    <div class="t">Plenary IV: Beyond competition, broader goals in the revised merger guidelines</div>
+    <div class="room">Amphitheatre 2, Rempart</div>
+    <div class="ppl">Gregor Langus (Cornerstone), Ali Yurukoglu (Stanford GSB), Natalia Fabra (CEMFI), Paul de Bijl (ACM)</div>
+    <div class="chair">Chair: Ana Sofia Rodrigues (Portuguese CA)</div></div></div>
+  <div class="slot brk" data-s="15:00" data-e="15:10"><div class="time">15:00–15:10</div><div class="b"><div class="t">Closing remarks</div></div></div>
+</section>
+
+<p class="note">Parallel rooms are listed in the program's order (JJL A3 · Aud. 5 · Aud. 6) without an explicit session-to-room mapping: check signs on site. Source: ACE program PDF, 9 Nov 2026. Times are Toulouse time; the current slot is highlighted.</p>
+</div>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('.tab');
+  function show(id){
+    tabs.forEach(function(t){t.setAttribute('aria-pressed',t.dataset.d===id?'true':'false');});
+    document.querySelectorAll('.day').forEach(function(d){d.classList.toggle('on',d.id===id);});
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.dataset.d);});});
+  function parisNow(){
+    var p=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+    var o={};p.forEach(function(x){o[x.type]=x.value;});
+    return {date:o.year+'-'+o.month+'-'+o.day, min:(+o.hour%24)*60+(+o.minute)};
+  }
+  function m(s){var a=s.split(':');return +a[0]*60+ +a[1];}
+  var first=true;
+  function tick(){
+    var n=parisNow();
+    document.querySelectorAll('.day').forEach(function(d){
+      var today=d.dataset.date===n.date, before=d.dataset.date<n.date;
+      d.querySelectorAll('.slot').forEach(function(s){
+        var st=m(s.dataset.s), en=m(s.dataset.e);
+        s.classList.toggle('now',today&&n.min>=st&&n.min<en);
+        s.classList.toggle('past',before||(today&&n.min>=en));
+      });
+      if(first&&today){show(d.id);}
+    });
+    if(first){var c=document.querySelector('.day.on .slot.now');if(c)c.scrollIntoView({block:'center'});first=false;}
+  }
+  tick();setInterval(tick,60000);
+})();
+</script>
+</body>
+</html>
