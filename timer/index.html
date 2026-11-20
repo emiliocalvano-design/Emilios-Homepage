@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Timer</title>
+<style>
+:root { --bg: #ffffff; --ink: #2e2e2e; --muted: #9a9a9a; --alert: #7a1f1f; --track: #e6e6e6; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #111111; --ink: #f2f2f2; --muted: #8a8a8a; --alert: #e08a8a; --track: #2a2a2a; }
+}
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); }
+body {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 100vh; padding: 24px;
+  font-family: 'Raleway', 'Helvetica Neue', Arial, sans-serif; font-weight: 300;
+}
+.label { font-size: clamp(16px, 2.6vw, 28px); color: var(--muted); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 2vh; }
+#clock {
+  font-size: min(34vw, 46vh); font-weight: 600; line-height: 1;
+  font-variant-numeric: tabular-nums; letter-spacing: -.03em; white-space: nowrap;
+}
+#clock.alert { color: var(--alert); }
+.bar { width: min(92vw, 1100px); height: 6px; background: var(--track); border-radius: 3px; margin-top: 4vh; overflow: hidden; }
+#fill { height: 100%; width: 0%; background: var(--ink); transition: width .25s linear; }
+.range { font-size: clamp(14px, 2vw, 20px); color: var(--muted); margin-top: 2.5vh; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div class="label" id="label">Timer</div>
+<div id="clock">45:00</div>
+<div class="bar"><div id="fill"></div></div>
+<div class="range">17:55 – 18:40 CET</div>
+
+<script>
+// 45-minute window, 17:55 to 18:40 Central European Time on 20 Nov 2026.
+const START = Date.parse('2026-11-20T17:55:00+01:00');
+const DURATION = 45 * 60 * 1000;
+const END = START + DURATION;
+
+const pad = n => String(n).padStart(2, '0');
+function fmt(ms) {
+  const s = Math.max(0, Math.ceil(ms / 1000));
+  return pad(Math.floor(s / 60)) + ':' + pad(s % 60);
+}
+
+const label = document.getElementById('label');
+const clock = document.getElementById('clock');
+const fill = document.getElementById('fill');
+
+function tick() {
+  const now = Date.now();
+  if (now < START) {
+    label.textContent = 'Starts in';
+    clock.textContent = fmt(START - now);
+    clock.classList.remove('alert');
+    fill.style.width = '0%';
+  } else if (now < END) {
+    const left = END - now;
+    label.textContent = 'Time left';
+    clock.textContent = fmt(left);
+    clock.classList.toggle('alert', left <= 5 * 60 * 1000);
+    fill.style.width = ((now - START) / DURATION * 100).toFixed(2) + '%';
+  } else {
+    label.textContent = 'Time is up';
+    clock.textContent = '00:00';
+    clock.classList.add('alert');
+    fill.style.width = '100%';
+  }
+}
+
+tick();
+setInterval(tick, 200);
+</script>
+</body>
+</html>
